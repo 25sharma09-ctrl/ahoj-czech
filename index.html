@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Czech Language Course</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-0: #eafbf2;
+    --green-1: #9fe1cb;
+    --green-2: #1D9E75;
+    --green-3: #0F6E56;
+    --green-4: #085041;
+    --amber: #BA7517;
+    --amber-bg: #FAEEDA;
+    --blue-bg: #E6F1FB;
+    --blue-text: #185FA5;
+    --red-bg: #FCEBEB;
+    --red-text: #A32D2D;
+    --bg: #f8f8f6;
+    --surface: #ffffff;
+    --border: #e5e4df;
+    --border2: #d0cfc9;
+    --text: #1a1a18;
+    --muted: #6b6a65;
+    --faint: #9e9d97;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── Layout ── */
+  .shell { max-width: 780px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── Top nav ── */
+  .topbar {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.75rem;
+  }
+  .topbar-brand {
+    font-size: 18px; font-weight: 700; letter-spacing: -0.02em;
+    color: var(--text); flex: 1;
+  }
+  .topbar-brand span { color: var(--green-2); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 600; padding: 4px 9px;
+    border-radius: 99px;
+  }
+  .badge-green { background: var(--green-0); color: var(--green-3); }
+  .badge-amber { background: var(--amber-bg); color: var(--amber); }
+  .badge-blue  { background: var(--blue-bg);  color: var(--blue-text); }
+
+  /* ── Back button ── */
+  .btn-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 6px 12px;
+    font-size: 13px; color: var(--muted); cursor: pointer;
+    transition: border-color .15s, color .15s;
+  }
+  .btn-back:hover { border-color: var(--border2); color: var(--text); }
+
+  /* ── Metric cards ── */
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .metric {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 12px; text-align: center;
+  }
+  .metric-val { font-size: 24px; font-weight: 700; color: var(--text); }
+  .metric-lbl { font-size: 11px; color: var(--faint); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* ── Heatmap ── */
+  .heatmap-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .heatmap-title { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(52, 1fr);
+    gap: 3px;
+  }
+  .hmap-col { display: flex; flex-direction: column; gap: 3px; }
+  .hmap-cell {
+    width: 100%; aspect-ratio: 1;
+    border-radius: 2px;
+    background: #ebebeb;
+    transition: background .15s;
+    cursor: default;
+    position: relative;
+  }
+  .hmap-cell[title]:hover::after {
+    content: attr(title);
+    position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%);
+    background: #222; color: #fff; font-size: 11px; padding: 3px 7px;
+    border-radius: 4px; white-space: nowrap; pointer-events: none; z-index: 10;
+  }
+  .hmap-cell.l1 { background: var(--green-0); }
+  .hmap-cell.l2 { background: var(--green-1); }
+  .hmap-cell.l3 { background: var(--green-2); }
+  .hmap-cell.l4 { background: var(--green-3); }
+  .hmap-legend { display: flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 11px; color: var(--faint); justify-content: flex-end; }
+  .legend-cell { width: 11px; height: 11px; border-radius: 2px; }
+
+  /* ── Unit grid ── */
+  .units { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+  .unit-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.1rem 1.25rem;
+    cursor: pointer; transition: border-color .15s, box-shadow .15s;
+  }
+  .unit-card:hover:not(.locked) { border-color: var(--green-2); box-shadow: 0 0 0 3px var(--green-0); }
+  .unit-card.locked { opacity: 0.45; cursor: not-allowed; }
+  .unit-num { font-size: 10px; font-weight: 700; color: var(--faint); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px; }
+  .unit-emoji { font-size: 22px; margin-bottom: 5px; }
+  .unit-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .unit-desc { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
+  .prog-bar { height: 4px; background: #ebebeb; border-radius: 2px; overflow: hidden; }
+  .prog-fill { height: 100%; background: var(--green-2); border-radius: 2px; transition: width .4s; }
+  .unit-meta { font-size: 11px; color: var(--faint); margin-top: 5px; }
+
+  /* ── Unit screen ── */
+  .tip-box {
+    background: var(--blue-bg); color: var(--blue-text);
+    border-radius: var(--radius-sm); padding: 11px 14px;
+    font-size: 13px; line-height: 1.6; margin-bottom: 1.25rem;
+  }
+  .word-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+  .word-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 12px;
+  }
+  .word-cz { font-size: 15px; font-weight: 700; }
+  .word-en { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+  .lessons { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+  .lesson-row {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 12px 14px;
+    cursor: pointer; transition: border-color .15s;
+  }
+  .lesson-row:hover:not(.locked) { border-color: var(--green-2); }
+  .lesson-row.locked { opacity: 0.4; cursor: not-allowed; }
+  .les-icon {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; flex-shrink: 0;
+  }
+  .les-done { background: var(--green-0); color: var(--green-3); }
+  .les-todo { background: #f0efea; color: var(--muted); }
+  .les-lock { background: #f0efea; color: var(--faint); }
+  .les-info { flex: 1; }
+  .les-title { font-size: 13px; font-weight: 600; }
+  .les-sub { font-size: 11px; color: var(--faint); margin-top: 1px; }
+  .les-xp { font-size: 12px; font-weight: 600; color: var(--green-3); }
+
+  /* ── Quiz ── */
+  .quiz-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .quiz-progress { height: 3px; background: #ebebeb; border-radius: 2px; margin-bottom: 1rem; }
+  .quiz-prog-fill { height: 100%; background: var(--green-2); border-radius: 2px; transition: width .3s; }
+  .quiz-label { font-size: 11px; color: var(--faint); margin-bottom: 8px; }
+  .quiz-q { font-size: 16px; font-weight: 600; margin-bottom: 1rem; line-height: 1.5; }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    padding: 11px 15px; border: 1px solid var(--border2);
+    border-radius: var(--radius-sm); cursor: pointer;
+    font-size: 14px; background: var(--surface); text-align: left;
+    transition: border-color .12s, background .12s; font-family: inherit;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--green-2); background: var(--green-0); }
+  .opt.correct { background: var(--green-0); border-color: var(--green-2); color: var(--green-4); font-weight: 600; }
+  .opt.wrong { background: var(--red-bg); border-color: var(--red-text); color: var(--red-text); }
+  .opt:disabled { cursor: default; }
+  .feedback {
+    border-radius: var(--radius-sm); padding: 10px 14px;
+    font-size: 13px; margin-top: 10px; line-height: 1.6;
+  }
+  .fb-good { background: var(--green-0); color: var(--green-4); }
+  .fb-bad  { background: var(--red-bg);  color: var(--red-text); }
+
+  /* ── Result ── */
+  .result-wrap { text-align: center; padding: 2rem 0 1.5rem; }
+  .result-stars { font-size: 28px; margin-bottom: 6px; }
+  .result-score { font-size: 52px; font-weight: 800; color: var(--green-2); letter-spacing: -0.04em; }
+  .result-sub { font-size: 14px; color: var(--muted); margin-top: 4px; margin-bottom: 1.5rem; }
+  .ai-box {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 14px;
+    font-size: 13px; line-height: 1.7; color: var(--text);
+    min-height: 56px; margin-bottom: 1.5rem; text-align: left;
+  }
+  .ai-loading { color: var(--faint); font-style: italic; }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    width: 100%; background: var(--green-2); color: #fff;
+    border: none; border-radius: var(--radius-sm); padding: 12px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: background .15s;
+  }
+  .btn-primary:hover { background: var(--green-3); }
+  .btn-ghost {
+    width: 100%; background: none; border: 1px solid var(--border2);
+    border-radius: var(--radius-sm); padding: 11px;
+    font-size: 14px; cursor: pointer; color: var(--muted);
+    font-family: inherit; margin-top: 8px; transition: border-color .15s, color .15s;
+  }
+  .btn-ghost:hover { border-color: var(--border2); color: var(--text); }
+
+  section-label {
+    display: block; font-size: 12px; font-weight: 700;
+    color: var(--faint); text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+
+  h2 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+
+  @media (max-width: 540px) {
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .units { grid-template-columns: 1fr; }
+    .word-grid { grid-template-columns: repeat(2, 1fr); }
+    .heatmap-grid { grid-template-columns: repeat(26, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- DASHBOARD -->
+  <div class="screen active" id="s-dashboard">
+    <div class="topbar">
+      <div class="topbar-brand">Czech<span>Learn</span></div>
+      <span class="badge badge-amber" id="dash-streak">🔥 0 days</span>
+      <span class="badge badge-green" id="dash-xp">⭐ 0 XP</span>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><div class="metric-val" id="m-xp">0</div><div class="metric-lbl">Total XP</div></div>
+      <div class="metric"><div class="metric-val" id="m-done">0</div><div class="metric-lbl">Lessons done</div></div>
+      <div class="metric"><div class="metric-val" id="m-words">0</div><div class="metric-lbl">Words learned</div></div>
+      <div class="metric"><div class="metric-val" id="m-acc">—</div><div class="metric-lbl">Accuracy</div></div>
+    </div>
+
+    <div class="heatmap-section">
+      <div class="heatmap-title">Daily activity — last 12 months</div>
+      <div class="heatmap-grid" id="heatmap"></div>
+      <div class="hmap-legend">
+        Less
+        <div class="legend-cell" style="background:#ebebeb"></div>
+        <div class="legend-cell" style="background:var(--green-0)"></div>
+        <div class="legend-cell" style="background:var(--green-1)"></div>
+        <div class="legend-cell" style="background:var(--green-2)"></div>
+        <div class="legend-cell" style="background:var(--green-3)"></div>
+        More
+      </div>
+    </div>
+
+    <h2>Course units</h2>
+    <div class="units" id="units-grid"></div>
+  </div>
+
+  <!-- UNIT -->
+  <div class="screen" id="s-unit">
+    <div class="topbar">
+      <button class="btn-back" onclick="goTo('s-dashboard')">← Dashboard</button>
+      <div style="flex:1;font-size:16px;font-weight:700" id="unit-hdr"></div>
+    </div>
+    <div class="tip-box" id="unit-tip"></div>
+    <section-label>Vocabulary</section-label>
+    <div class="word-grid" id="word-grid"></div>
+    <h2>Lessons</h2>
+    <div class="lessons" id="lessons-list"></div>
+  </div>
+
+  <!-- LESSON / QUIZ -->
+  <div class="screen" id="s-lesson">
+    <div class="topbar">
+      <button class="btn-back" id="lesson-back">← Unit</button>
+      <div style="flex:1;font-size:15px;font-weight:700" id="lesson-hdr"></div>
+      <span class="badge badge-green" id="lesson-xp-badge"></span>
+    </div>
+    <div id="quiz-area"></div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="s-result">
+    <div class="topbar">
+      <div class="topbar-brand">Czech<span>Learn</span></div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-stars" id="res-stars"></div>
+      <div class="result-score" id="res-score"></div>
+      <div class="result-sub" id="res-sub"></div>
+    </div>
+    <div class="ai-box" id="res-ai"><span class="ai-loading">Getting personalised feedback…</span></div>
+    <button class="btn-primary" id="res-next">Continue</button>
+    <button class="btn-ghost" onclick="goTo('s-dashboard')">Back to dashboard</button>
+  </div>
+
+</div>
+
+<script>
+// ── Course data ──────────────────────────────────────────────────────────────
+const COURSE = [
+  {
+    id:'u1', title:'Greetings & Basics', emoji:'👋',
+    desc:'Say hello, introduce yourself, and be polite.',
+    tip:'Czech greetings change by time of day. "Dobrý den" is the formal daytime greeting; "Ahoj" is casual and used freely among friends.',
+    words:[['Dobrý den','Good day'],['Ahoj','Hi / Bye'],['Děkuji','Thank you'],['Prosím','Please / You\'re welcome'],['Ano','Yes'],['Ne','No']],
+    lessons:[
+      {id:'u1l1',title:'Hello & Goodbye',xp:20,qs:[
+        {q:'How do you say "Hello" formally in Czech?',opts:['Ahoj','Dobrý den','Nashledanou','Dobrou noc'],ans:1,hint:'Used during the day in formal or professional settings.'},
+        {q:'What does "Nashledanou" mean?',opts:['Good morning','Please','Goodbye','Thank you'],ans:2,hint:'You say this when leaving someone.'},
+        {q:'Which greeting is casual and used among friends?',opts:['Dobrý den','Dobrý večer','Ahoj','Dobrý ráno'],ans:2,hint:'Works for both hello and bye.'},
+      ]},
+      {id:'u1l2',title:'Please & Thank you',xp:20,qs:[
+        {q:'How do you say "Thank you" in Czech?',opts:['Prosím','Ano','Děkuji','Ne'],ans:2,hint:'Starts with D.'},
+        {q:'"Prosím" can mean which two things?',opts:['Yes and No','Please and You\'re welcome','Thank you and Sorry','Hello and Bye'],ans:1,hint:'It works in both requesting and responding.'},
+        {q:'What is "Yes" in Czech?',opts:['Ne','Prosím','Ano','Ahoj'],ans:2,hint:'Short and simple, similar to many Slavic languages.'},
+      ]},
+      {id:'u1l3',title:'Numbers 1–5',xp:25,qs:[
+        {q:'What is "jedna" in English?',opts:['Two','Three','One','Four'],ans:2,hint:'The very first number.'},
+        {q:'"Tři" means…',opts:['Two','Three','Four','Five'],ans:1,hint:'Sounds similar to the English word.'},
+        {q:'"Pět" is which number?',opts:['Four','Three','Six','Five'],ans:3,hint:'The last finger on one hand.'},
+      ]},
+    ]
+  },
+  {
+    id:'u2', title:'Food & Drinks', emoji:'🍺',
+    desc:'Order at a Czech pub and navigate a menu.',
+    tip:'"Hospoda" is the Czech pub — a cultural institution. Knowing how to order a "pivo" (beer) will earn you instant respect. Czech beer is world-famous!',
+    words:[['Pivo','Beer'],['Voda','Water'],['Jídlo','Food'],['Chléb','Bread'],['Sýr','Cheese'],['Káva','Coffee']],
+    lessons:[
+      {id:'u2l1',title:'At the pub',xp:20,qs:[
+        {q:'How do you say "beer" in Czech?',opts:['Voda','Káva','Pivo','Čaj'],ans:2,hint:'Czech Republic is the world\'s biggest beer consumer per capita.'},
+        {q:'What does "Jedno pivo, prosím" mean?',opts:['Two beers please','One coffee please','One beer please','No beer please'],ans:2,hint:'"Jedno" means one.'},
+        {q:'What is "voda"?',opts:['Wine','Beer','Coffee','Water'],ans:3,hint:'Essential for life — H₂O.'},
+      ]},
+      {id:'u2l2',title:'Ordering food',xp:25,qs:[
+        {q:'"Chléb" means…',opts:['Meat','Bread','Butter','Soup'],ans:1,hint:'A staple of Czech cuisine, often dark and dense.'},
+        {q:'The polite phrase "I would like…" in Czech is…',opts:['Chci','Chtěl bych','Mám','Dám si'],ans:1,hint:'"Chtěl bych" is more formal and polite.'},
+        {q:'"Sýr" is Czech for…',opts:['Butter','Salt','Cheese','Cream'],ans:2,hint:'Served in many Czech dishes and snacks.'},
+      ]},
+      {id:'u2l3',title:'Paying the bill',xp:25,qs:[
+        {q:'How do you ask for the bill?',opts:['Kde je záchod?','Zaplatím.','Účet, prosím.','Dám si pivo.'],ans:2,hint:'"Účet" means bill or receipt.'},
+        {q:'What does "Kolik to stojí?" mean?',opts:['Where is it?','Is this free?','How much does it cost?','Do you have more?'],ans:2,hint:'"Kolik" = how much.'},
+        {q:'To say "Keep the change," you say…',opts:['Vraťte drobné.','Nechte si drobné.','Kde je ATM?','Platím kartou.'],ans:1,hint:'"Nechte si" = keep for yourself.'},
+      ]},
+    ]
+  },
+  {
+    id:'u3', title:'Getting Around', emoji:'🚌',
+    desc:'Navigate Prague by metro, tram, and on foot.',
+    tip:'Prague\'s metro has 3 lines: A (green), B (yellow), C (red). The word for station is "stanice" and for tram stop it\'s "zastávka."',
+    words:[['Kde','Where'],['Vlevo','Left'],['Vpravo','Right'],['Rovně','Straight ahead'],['Stanice','Metro station'],['Zastávka','Bus/tram stop']],
+    lessons:[
+      {id:'u3l1',title:'Asking directions',xp:20,qs:[
+        {q:'"Kde je…?" means…',opts:['How far is…?','Where is…?','Is there a…?','What is…?'],ans:1,hint:'"Kde" = where.'},
+        {q:'How do you say "Go left"?',opts:['Jděte rovně','Zastavte','Jděte vlevo','Jděte vpravo'],ans:2,hint:'"Vlevo" = to the left.'},
+        {q:'"Rovně" means…',opts:['Turn back','Stop here','Straight ahead','On the right'],ans:2,hint:'Go in a straight line, don\'t turn.'},
+      ]},
+      {id:'u3l2',title:'Public transport',xp:25,qs:[
+        {q:'What is a "zastávka"?',opts:['A train station','A bus or tram stop','A taxi rank','A car park'],ans:1,hint:'You\'ll see these everywhere on Prague streets.'},
+        {q:'How do you say "one ticket please"?',opts:['Jedno lístek prosím','Jedno nádraží prosím','Jeden jízdní lístek prosím','Jeden vlak prosím'],ans:2,hint:'"Jízdní lístek" = travel ticket.'},
+        {q:'"Příští stanice" means…',opts:['Last station','Change here','Next station','Exit here'],ans:2,hint:'You hear this announcement on the metro.'},
+      ]},
+    ]
+  },
+  {
+    id:'u4', title:'People & Family', emoji:'👨‍👩‍👧',
+    desc:'Talk about family and describe people.',
+    tip:'Czech nouns have grammatical gender — masculine, feminine, and neuter. Adjectives must agree with the noun\'s gender, which takes practice but becomes natural over time.',
+    words:[['Rodina','Family'],['Matka','Mother'],['Otec','Father'],['Bratr','Brother'],['Sestra','Sister'],['Přítel','Friend / Boyfriend']],
+    lessons:[
+      {id:'u4l1',title:'Family members',xp:20,qs:[
+        {q:'What is "matka"?',opts:['Sister','Grandmother','Mother','Aunt'],ans:2,hint:'The female parent.'},
+        {q:'"Bratr" means…',opts:['Father','Brother','Uncle','Son'],ans:1,hint:'Male sibling.'},
+        {q:'How do you say "family"?',opts:['Děti','Přítel','Rodina','Sestra'],ans:2,hint:'Root of many Czech family-related words.'},
+      ]},
+      {id:'u4l2',title:'Describing people',xp:25,qs:[
+        {q:'"Vysoký" means…',opts:['Short','Fat','Tall','Old'],ans:2,hint:'The opposite of "malý" (small/short).'},
+        {q:'How do you say "She is kind"?',opts:['Je hezká','Je hodná','Je mladá','Je chytrá'],ans:1,hint:'"Hodná" means kind or good-natured.'},
+        {q:'"Starý" means…',opts:['Young','Happy','Old','Angry'],ans:2,hint:'Opposite of "mladý" (young).'},
+      ]},
+    ]
+  },
+];
+
+// ── State ────────────────────────────────────────────────────────────────────
+const SK = 'czechlearn_state';
+let S = { xp:0, streak:0, lastDate:null, done:{}, totalQ:0, correctQ:0, daily:{} };
+let curUnit=null, curLesson=null, curQ=0, qScore=0;
+
+function load(){ try{ const r=localStorage.getItem(SK); if(r) S=JSON.parse(r); }catch(e){} }
+function save(){ try{ localStorage.setItem(SK, JSON.stringify(S)); }catch(e){} }
+
+// ── Navigation ───────────────────────────────────────────────────────────────
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ── Heatmap ──────────────────────────────────────────────────────────────────
+function buildHeatmap(){
+  const el = document.getElementById('heatmap');
+  el.innerHTML='';
+  const today = new Date();
+  // Start 364 days ago, aligned to Sunday
+  const start = new Date(today);
+  start.setDate(start.getDate() - 363);
+
+  // Build 52 columns × 7 rows
+  for(let col=0; col<52; col++){
+    const colEl = document.createElement('div');
+    colEl.className='hmap-col';
+    for(let row=0; row<7; row++){
+      const d = new Date(start);
+      d.setDate(d.getDate() + col*7 + row);
+      if(d > today){ colEl.appendChild(document.createElement('div')); continue; }
+      const key = d.toISOString().slice(0,10);
+      const count = S.daily[key] || 0;
+      const cell = document.createElement('div');
+      cell.className = 'hmap-cell' + (count>=5?' l4':count>=3?' l3':count>=1?' l2':count>0?' l1':'');
+      const label = d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+      cell.title = `${label}: ${count} lesson${count!==1?'s':''} completed`;
+      colEl.appendChild(cell);
+    }
+    el.appendChild(colEl);
+  }
+}
+
+// ── Dashboard ────────────────────────────────────────────────────────────────
+function renderDashboard(){
+  const doneLessons = Object.keys(S.done).length;
+  const doneUnits = COURSE.filter(u=>u.lessons.every(l=>S.done[l.id]));
+  const learnedWords = doneUnits.reduce((a,u)=>a+u.words.length,0) +
+    Math.min(COURSE.flatMap(u=>u.lessons).filter(l=>S.done[l.id]).length * 2, 
+             COURSE.reduce((a,u)=>a+u.words.length,0));
+
+  document.getElementById('m-xp').textContent    = S.xp;
+  document.getElementById('m-done').textContent  = doneLessons;
+  document.getElementById('m-words').textContent = Math.min(learnedWords, COURSE.reduce((a,u)=>a+u.words.length,0));
+  document.getElementById('m-acc').textContent   = S.totalQ ? Math.round(S.correctQ/S.totalQ*100)+'%' : '—';
+  document.getElementById('dash-streak').textContent = '🔥 '+S.streak+' day'+(S.streak!==1?'s':'');
+  document.getElementById('dash-xp').textContent     = '⭐ '+S.xp+' XP';
+
+  buildHeatmap();
+
+  const grid = document.getElementById('units-grid');
+  grid.innerHTML='';
+  COURSE.forEach((unit,ui)=>{
+    const total = unit.lessons.length;
+    const done  = unit.lessons.filter(l=>S.done[l.id]).length;
+    const locked= ui>0 && !COURSE[ui-1].lessons.every(l=>S.done[l.id]);
+    const card  = document.createElement('div');
+    card.className='unit-card'+(locked?' locked':'');
+    card.innerHTML=`
+      <div class="unit-num">Unit ${ui+1} ${locked?'🔒':''}</div>
+      <div class="unit-emoji">${unit.emoji}</div>
+      <div class="unit-title">${unit.title}</div>
+      <div class="unit-desc">${unit.desc}</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${total?Math.round(done/total*100):0}%"></div></div>
+      <div class="unit-meta">${done}/${total} lessons · ${unit.words.length} words</div>
+    `;
+    if(!locked) card.onclick=()=>openUnit(unit);
+    grid.appendChild(card);
+  });
+}
+
+// ── Unit screen ──────────────────────────────────────────────────────────────
+function openUnit(unit){
+  curUnit=unit;
+  document.getElementById('unit-hdr').textContent=unit.emoji+' '+unit.title;
+  document.getElementById('unit-tip').innerHTML='💡 '+unit.tip;
+
+  const wg=document.getElementById('word-grid');
+  wg.innerHTML=unit.words.map(([cz,en])=>`
+    <div class="word-card"><div class="word-cz">${cz}</div><div class="word-en">${en}</div></div>
+  `).join('');
+
+  const ll=document.getElementById('lessons-list');
+  ll.innerHTML='';
+  unit.lessons.forEach((les,li)=>{
+    const done  = !!S.done[les.id];
+    const locked= li>0 && !S.done[unit.lessons[li-1].id];
+    const row   = document.createElement('div');
+    row.className='lesson-row'+(locked?' locked':'');
+    row.innerHTML=`
+      <div class="les-icon ${done?'les-done':locked?'les-lock':'les-todo'}">
+        ${done?'✓':locked?'🔒':'▶'}
+      </div>
+      <div class="les-info">
+        <div class="les-title">${les.title}</div>
+        <div class="les-sub">${les.qs.length} questions</div>
+      </div>
+      <span class="les-xp">+${les.xp} XP</span>
+    `;
+    if(!locked) row.onclick=()=>startLesson(les);
+    ll.appendChild(row);
+  });
+
+  document.getElementById('lesson-back').onclick=()=>goTo('s-unit');
+  goTo('s-unit');
+}
+
+// ── Quiz ─────────────────────────────────────────────────────────────────────
+function startLesson(les){
+  curLesson=les; curQ=0; qScore=0;
+  document.getElementById('lesson-hdr').textContent=les.title;
+  document.getElementById('lesson-xp-badge').textContent='⭐ '+les.xp+' XP';
+  renderQuestion();
+  goTo('s-lesson');
+}
+
+function renderQuestion(){
+  const qa=document.getElementById('quiz-area');
+  if(curQ>=curLesson.qs.length){ showResult(); return; }
+  const q=curLesson.qs[curQ];
+  const pct=Math.round(curQ/curLesson.qs.length*100);
+  qa.innerHTML=`
+    <div class="quiz-card">
+      <div class="quiz-progress"><div class="quiz-prog-fill" style="width:${pct}%"></div></div>
+      <div class="quiz-label">Question ${curQ+1} of ${curLesson.qs.length}</div>
+      <div class="quiz-q">${q.q}</div>
+      <div class="options">
+        ${q.opts.map((o,i)=>`<button class="opt" onclick="pickAnswer(${i})">${o}</button>`).join('')}
+      </div>
+      <div id="fb"></div>
+    </div>
+  `;
+}
+
+function pickAnswer(idx){
+  const q=curLesson.qs[curQ];
+  const opts=document.querySelectorAll('.opt');
+  opts.forEach(o=>o.disabled=true);
+  const correct=idx===q.ans;
+  opts[idx].classList.add(correct?'correct':'wrong');
+  if(!correct) opts[q.ans].classList.add('correct');
+  document.getElementById('fb').innerHTML=
+    `<div class="feedback ${correct?'fb-good':'fb-bad'}">${correct?'✓ Correct! ':'✗ Not quite — '}${q.hint}</div>`;
+  S.totalQ++;
+  if(correct){S.correctQ++;qScore++;}
+  setTimeout(()=>{curQ++;renderQuestion();},1700);
+}
+
+// ── Result ───────────────────────────────────────────────────────────────────
+async function showResult(){
+  const total=curLesson.qs.length;
+  const pct2=Math.round(qScore/total*100);
+  const stars=pct2===100?'⭐⭐⭐':pct2>=66?'⭐⭐':pct2>=33?'⭐':'';
+  const xpEarned=pct2>=66?curLesson.xp:Math.round(curLesson.xp*pct2/100);
+
+  // Update state
+  if(!S.done[curLesson.id]||S.done[curLesson.id]<qScore){
+    S.done[curLesson.id]=qScore;
+    S.xp+=xpEarned;
+    const today=new Date().toISOString().slice(0,10);
+    if(S.lastDate!==today){S.streak++;S.lastDate=today;}
+    // Record daily activity
+    S.daily[today]=(S.daily[today]||0)+1;
+  }
+  save();
+
+  document.getElementById('res-stars').textContent=stars;
+  document.getElementById('res-score').textContent=qScore+'/'+total;
+  document.getElementById('res-sub').textContent=`+${xpEarned} XP earned · ${pct2}% correct`;
+
+  const nextLesson=curUnit?.lessons[curUnit.lessons.indexOf(curLesson)+1];
+  const nextUnit=COURSE[COURSE.indexOf(curUnit)+1];
+  const btn=document.getElementById('res-next');
+  if(nextLesson){btn.textContent='Next lesson →';btn.onclick=()=>startLesson(nextLesson);}
+  else if(nextUnit){btn.textContent='Next unit →';btn.onclick=()=>{renderDashboard();openUnit(nextUnit);};}
+  else{btn.textContent='Back to dashboard';btn.onclick=()=>goTo('s-dashboard');}
+
+  renderDashboard();
+  goTo('s-result');
+  getAIFeedback(pct2,qScore,total);
+}
+
+async function getAIFeedback(pct2,score,total){
+  const el=document.getElementById('res-ai');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',max_tokens:1000,
+        messages:[{role:'user',content:`A student completed a Czech language lesson called "${curLesson.title}" (unit: "${curUnit.title}"). Score: ${score}/${total} (${pct2}%). Write 2 encouraging sentences of feedback and one specific Czech language tip related to the lesson topic. Keep it under 60 words, friendly tone.`}]
+      })
+    });
+    const data=await res.json();
+    el.textContent=data.content?.map(c=>c.text||'').join('')||'Great work! Keep practising daily.';
+  }catch(e){
+    el.textContent=score===total
+      ?'Perfect score! Your Czech is developing brilliantly — keep that streak going!'
+      :'Good effort! Review any tricky words and try again to boost your score.';
+  }
+}
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+load();
+renderDashboard();
+</script>
+</body>
+</html>
