@@ -3,624 +3,1055 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Czech Language Course</title>
+<title>CzechLearn A2 — Full Course</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g0:#eafbf2;--g1:#9fe1cb;--g2:#1D9E75;--g3:#0F6E56;--g4:#085041;
+  --a0:#FAEEDA;--a2:#BA7517;
+  --b0:#E6F1FB;--b2:#185FA5;--b3:#0C447C;
+  --r0:#FCEBEB;--r2:#A32D2D;
+  --p0:#EEEDFE;--p2:#534AB7;
+  --bg:#f7f6f2;--surf:#ffffff;
+  --bdr:#e4e3de;--bdr2:#cccbc5;
+  --txt:#18180f;--mut:#6b6961;--fnt:#9e9c95;
+  --rad:10px;--rads:6px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;font-size:15px;line-height:1.65}
+.shell{max-width:800px;margin:0 auto;padding:1.5rem 1rem 5rem}
+.screen{display:none}.screen.active{display:block}
 
-  :root {
-    --green-0: #eafbf2;
-    --green-1: #9fe1cb;
-    --green-2: #1D9E75;
-    --green-3: #0F6E56;
-    --green-4: #085041;
-    --amber: #BA7517;
-    --amber-bg: #FAEEDA;
-    --blue-bg: #E6F1FB;
-    --blue-text: #185FA5;
-    --red-bg: #FCEBEB;
-    --red-text: #A32D2D;
-    --bg: #f8f8f6;
-    --surface: #ffffff;
-    --border: #e5e4df;
-    --border2: #d0cfc9;
-    --text: #1a1a18;
-    --muted: #6b6a65;
-    --faint: #9e9d97;
-    --radius: 10px;
-    --radius-sm: 6px;
-  }
+/* topbar */
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:1.75rem;flex-wrap:wrap}
+.brand{font-size:19px;font-weight:800;letter-spacing:-.03em;color:var(--txt);flex:1}
+.brand span{color:var(--g2)}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:99px}
+.bg{background:var(--g0);color:var(--g3)}
+.ba{background:var(--a0);color:var(--a2)}
+.bb{background:var(--b0);color:var(--b2)}
+.bp{background:var(--p0);color:var(--p2)}
+.btn-back{display:inline-flex;align-items:center;gap:5px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rads);padding:6px 12px;font-size:13px;color:var(--mut);cursor:pointer;font-family:inherit}
+.btn-back:hover{border-color:var(--bdr2);color:var(--txt)}
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    font-size: 15px;
-    line-height: 1.6;
-  }
+/* metrics */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.metric{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rad);padding:14px 10px;text-align:center}
+.metric-val{font-size:22px;font-weight:800;color:var(--txt)}
+.metric-lbl{font-size:10px;color:var(--fnt);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
 
-  /* ── Layout ── */
-  .shell { max-width: 780px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
-  .screen { display: none; }
-  .screen.active { display: block; }
+/* heatmap */
+.hmap-wrap{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.25rem;margin-bottom:1.5rem}
+.sec-label{font-size:11px;font-weight:700;color:var(--fnt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.hmap-grid{display:grid;grid-template-columns:repeat(52,1fr);gap:3px}
+.hmap-col{display:flex;flex-direction:column;gap:3px}
+.hmap-cell{width:100%;aspect-ratio:1;border-radius:2px;background:#ebebeb}
+.hmap-cell.l1{background:var(--g0)}.hmap-cell.l2{background:var(--g1)}.hmap-cell.l3{background:var(--g2)}.hmap-cell.l4{background:var(--g3)}
+.hmap-leg{display:flex;align-items:center;gap:4px;margin-top:8px;font-size:11px;color:var(--fnt);justify-content:flex-end}
+.leg-cell{width:11px;height:11px;border-radius:2px}
 
-  /* ── Top nav ── */
-  .topbar {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 1.75rem;
-  }
-  .topbar-brand {
-    font-size: 18px; font-weight: 700; letter-spacing: -0.02em;
-    color: var(--text); flex: 1;
-  }
-  .topbar-brand span { color: var(--green-2); }
-  .badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 12px; font-weight: 600; padding: 4px 9px;
-    border-radius: 99px;
-  }
-  .badge-green { background: var(--green-0); color: var(--green-3); }
-  .badge-amber { background: var(--amber-bg); color: var(--amber); }
-  .badge-blue  { background: var(--blue-bg);  color: var(--blue-text); }
+/* unit grid */
+.units{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.unit-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.1rem 1.2rem;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.unit-card:hover:not(.locked){border-color:var(--g2);box-shadow:0 0 0 3px var(--g0)}
+.unit-card.locked{opacity:.4;cursor:not-allowed}
+.unit-num{font-size:10px;font-weight:700;color:var(--fnt);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}
+.unit-emoji{font-size:22px;margin-bottom:4px}
+.unit-title{font-size:14px;font-weight:700;margin-bottom:4px}
+.unit-desc{font-size:12px;color:var(--mut);margin-bottom:10px;line-height:1.5}
+.prog-bar{height:4px;background:#ebebeb;border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--g2);border-radius:2px;transition:width .4s}
+.unit-meta{font-size:11px;color:var(--fnt);margin-top:5px}
 
-  /* ── Back button ── */
-  .btn-back {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 6px 12px;
-    font-size: 13px; color: var(--muted); cursor: pointer;
-    transition: border-color .15s, color .15s;
-  }
-  .btn-back:hover { border-color: var(--border2); color: var(--text); }
+/* lesson list */
+.lessons{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem}
+.les-row{display:flex;align-items:center;gap:12px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rads);padding:12px 14px;cursor:pointer;transition:border-color .15s}
+.les-row:hover:not(.locked){border-color:var(--g2)}
+.les-row.locked{opacity:.4;cursor:not-allowed}
+.les-icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.li-done{background:var(--g0);color:var(--g3)}.li-todo{background:#f0efe9;color:var(--mut)}.li-lock{background:#f0efe9;color:var(--fnt)}
+.les-info{flex:1}.les-title{font-size:13px;font-weight:600}.les-sub{font-size:11px;color:var(--fnt);margin-top:1px}
+.les-type{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;margin-left:6px}
+.lt-read{background:var(--b0);color:var(--b2)}.lt-listen{background:var(--p0);color:var(--p2)}.lt-gram{background:var(--a0);color:var(--a2)}.lt-quiz{background:var(--g0);color:var(--g3)}
+.les-xp{font-size:12px;font-weight:600;color:var(--g3)}
 
-  /* ── Metric cards ── */
-  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.5rem; }
-  .metric {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 14px 12px; text-align: center;
-  }
-  .metric-val { font-size: 24px; font-weight: 700; color: var(--text); }
-  .metric-lbl { font-size: 11px; color: var(--faint); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+/* tip box */
+.tip-box{background:var(--b0);color:var(--b3);border-radius:var(--rads);padding:11px 14px;font-size:13px;line-height:1.6;margin-bottom:1.2rem}
 
-  /* ── Heatmap ── */
-  .heatmap-section {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-  .heatmap-title { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .heatmap-grid {
-    display: grid;
-    grid-template-columns: repeat(52, 1fr);
-    gap: 3px;
-  }
-  .hmap-col { display: flex; flex-direction: column; gap: 3px; }
-  .hmap-cell {
-    width: 100%; aspect-ratio: 1;
-    border-radius: 2px;
-    background: #ebebeb;
-    transition: background .15s;
-    cursor: default;
-    position: relative;
-  }
-  .hmap-cell[title]:hover::after {
-    content: attr(title);
-    position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%);
-    background: #222; color: #fff; font-size: 11px; padding: 3px 7px;
-    border-radius: 4px; white-space: nowrap; pointer-events: none; z-index: 10;
-  }
-  .hmap-cell.l1 { background: var(--green-0); }
-  .hmap-cell.l2 { background: var(--green-1); }
-  .hmap-cell.l3 { background: var(--green-2); }
-  .hmap-cell.l4 { background: var(--green-3); }
-  .hmap-legend { display: flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 11px; color: var(--faint); justify-content: flex-end; }
-  .legend-cell { width: 11px; height: 11px; border-radius: 2px; }
+/* word grid */
+.word-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.4rem}
+.word-card{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rads);padding:10px 12px}
+.word-cz{font-size:15px;font-weight:700}.word-en{font-size:12px;color:var(--mut);margin-top:1px}
+.word-pron{font-size:11px;color:var(--fnt);font-style:italic;margin-top:1px}
 
-  /* ── Unit grid ── */
-  .units { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
-  .unit-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 1.1rem 1.25rem;
-    cursor: pointer; transition: border-color .15s, box-shadow .15s;
-  }
-  .unit-card:hover:not(.locked) { border-color: var(--green-2); box-shadow: 0 0 0 3px var(--green-0); }
-  .unit-card.locked { opacity: 0.45; cursor: not-allowed; }
-  .unit-num { font-size: 10px; font-weight: 700; color: var(--faint); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px; }
-  .unit-emoji { font-size: 22px; margin-bottom: 5px; }
-  .unit-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-  .unit-desc { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
-  .prog-bar { height: 4px; background: #ebebeb; border-radius: 2px; overflow: hidden; }
-  .prog-fill { height: 100%; background: var(--green-2); border-radius: 2px; transition: width .4s; }
-  .unit-meta { font-size: 11px; color: var(--faint); margin-top: 5px; }
+/* ── READING LESSON ── */
+.lesson-wrap{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;margin-bottom:1rem}
+.lesson-hero{background:linear-gradient(135deg,var(--g3),var(--g2));color:#fff;padding:1.25rem 1.5rem}
+.lesson-hero h2{font-size:18px;font-weight:700;margin-bottom:4px}
+.lesson-hero p{font-size:13px;opacity:.85}
+.lesson-body{padding:1.25rem 1.5rem}
+.reading-text{font-size:15px;line-height:1.9;color:var(--txt);margin-bottom:1.25rem}
+.reading-text .cz-word{border-bottom:1.5px dashed var(--g2);cursor:help;color:var(--g3);font-weight:500;position:relative}
+.translation-toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut);margin-bottom:1rem}
+.translation-toggle input[type=checkbox]{accent-color:var(--g2);width:15px;height:15px;cursor:pointer}
+.translation-block{background:var(--bg);border-left:3px solid var(--g2);border-radius:0 var(--rads) var(--rads) 0;padding:12px 14px;font-size:14px;line-height:1.8;color:var(--mut);margin-bottom:1rem;display:none}
+.translation-block.show{display:block}
+.vocab-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:1rem}
+.vocab-table th{text-align:left;padding:8px 10px;background:var(--bg);color:var(--fnt);font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;border-bottom:1px solid var(--bdr)}
+.vocab-table td{padding:9px 10px;border-bottom:1px solid var(--bdr)}
+.vocab-table tr:last-child td{border-bottom:none}
+.cz-cell{font-weight:600;color:var(--g3)}
+.ex-cell{font-size:12px;color:var(--mut);font-style:italic}
 
-  /* ── Unit screen ── */
-  .tip-box {
-    background: var(--blue-bg); color: var(--blue-text);
-    border-radius: var(--radius-sm); padding: 11px 14px;
-    font-size: 13px; line-height: 1.6; margin-bottom: 1.25rem;
-  }
-  .word-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.5rem; }
-  .word-card {
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 10px 12px;
-  }
-  .word-cz { font-size: 15px; font-weight: 700; }
-  .word-en { font-size: 12px; color: var(--muted); margin-top: 1px; }
+/* ── LISTENING LESSON ── */
+.listen-card{background:var(--p0);border:1px solid #d4d1f5;border-radius:var(--rad);padding:1.25rem;margin-bottom:1rem}
+.listen-title{font-size:13px;font-weight:700;color:var(--p2);margin-bottom:10px}
+.listen-player{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.play-btn{width:44px;height:44px;border-radius:50%;background:var(--p2);color:#fff;border:none;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:inherit}
+.play-btn:hover{background:#3d33a0}
+.listen-text-cz{font-size:16px;font-weight:600;color:var(--p2);line-height:1.7;margin-bottom:6px}
+.listen-text-en{font-size:13px;color:var(--mut);line-height:1.6;display:none}
+.listen-text-en.show{display:block}
+.show-trans-btn{font-size:12px;color:var(--p2);background:none;border:1px solid var(--p2);border-radius:99px;padding:3px 10px;cursor:pointer;font-family:inherit;margin-top:4px}
+.dialog-row{display:flex;gap:10px;margin-bottom:10px}
+.dialog-avatar{width:32px;height:32px;border-radius:50%;background:var(--p2);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.dialog-avatar.b{background:var(--g3)}
+.dialog-bubble{background:var(--surf);border:1px solid var(--bdr);border-radius:0 var(--rad) var(--rad) var(--rad);padding:10px 13px;flex:1}
+.dialog-bubble.right{border-radius:var(--rad) 0 var(--rad) var(--rad);background:var(--g0);border-color:#b5ddd0}
+.dialog-cz{font-size:14px;font-weight:500;margin-bottom:2px}
+.dialog-en{font-size:12px;color:var(--mut);font-style:italic}
+.speak-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--p2);background:none;border:1px solid #c4c0f0;border-radius:99px;padding:3px 9px;cursor:pointer;margin-top:5px;font-family:inherit}
+.speak-btn:hover{background:#f0effe}
 
-  .lessons { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
-  .lesson-row {
-    display: flex; align-items: center; gap: 12px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 12px 14px;
-    cursor: pointer; transition: border-color .15s;
-  }
-  .lesson-row:hover:not(.locked) { border-color: var(--green-2); }
-  .lesson-row.locked { opacity: 0.4; cursor: not-allowed; }
-  .les-icon {
-    width: 34px; height: 34px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 15px; flex-shrink: 0;
-  }
-  .les-done { background: var(--green-0); color: var(--green-3); }
-  .les-todo { background: #f0efea; color: var(--muted); }
-  .les-lock { background: #f0efea; color: var(--faint); }
-  .les-info { flex: 1; }
-  .les-title { font-size: 13px; font-weight: 600; }
-  .les-sub { font-size: 11px; color: var(--faint); margin-top: 1px; }
-  .les-xp { font-size: 12px; font-weight: 600; color: var(--green-3); }
+/* ── GRAMMAR LESSON ── */
+.gram-section{margin-bottom:1.25rem}
+.gram-title{font-size:14px;font-weight:700;color:var(--a2);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.gram-rule{background:var(--a0);border-left:3px solid var(--a2);border-radius:0 var(--rads) var(--rads) 0;padding:11px 14px;font-size:13px;line-height:1.7;margin-bottom:8px}
+.gram-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:10px}
+.gram-table th{background:var(--a0);color:var(--a2);padding:7px 10px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid #f0c97c}
+.gram-table td{padding:8px 10px;border-bottom:1px solid var(--bdr)}
+.gram-table tr:last-child td{border-bottom:none}
+.gram-table .hi{font-weight:700;color:var(--g3)}
+.gram-examples{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.gram-ex{display:flex;gap:10px;font-size:13px}
+.gram-ex .cz{font-weight:600;color:var(--txt);min-width:180px}
+.gram-ex .en{color:var(--mut);font-style:italic}
 
-  /* ── Quiz ── */
-  .quiz-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  .quiz-progress { height: 3px; background: #ebebeb; border-radius: 2px; margin-bottom: 1rem; }
-  .quiz-prog-fill { height: 100%; background: var(--green-2); border-radius: 2px; transition: width .3s; }
-  .quiz-label { font-size: 11px; color: var(--faint); margin-bottom: 8px; }
-  .quiz-q { font-size: 16px; font-weight: 600; margin-bottom: 1rem; line-height: 1.5; }
-  .options { display: flex; flex-direction: column; gap: 8px; }
-  .opt {
-    padding: 11px 15px; border: 1px solid var(--border2);
-    border-radius: var(--radius-sm); cursor: pointer;
-    font-size: 14px; background: var(--surface); text-align: left;
-    transition: border-color .12s, background .12s; font-family: inherit;
-  }
-  .opt:hover:not(:disabled) { border-color: var(--green-2); background: var(--green-0); }
-  .opt.correct { background: var(--green-0); border-color: var(--green-2); color: var(--green-4); font-weight: 600; }
-  .opt.wrong { background: var(--red-bg); border-color: var(--red-text); color: var(--red-text); }
-  .opt:disabled { cursor: default; }
-  .feedback {
-    border-radius: var(--radius-sm); padding: 10px 14px;
-    font-size: 13px; margin-top: 10px; line-height: 1.6;
-  }
-  .fb-good { background: var(--green-0); color: var(--green-4); }
-  .fb-bad  { background: var(--red-bg);  color: var(--red-text); }
+/* ── FILL IN BLANK ── */
+.fib-wrap{margin-bottom:1rem}
+.fib-q{font-size:15px;line-height:2;margin-bottom:8px}
+.fib-input{border:none;border-bottom:2px solid var(--g2);background:transparent;font-size:15px;font-family:inherit;padding:0 4px;width:110px;color:var(--txt);outline:none}
+.fib-input:focus{border-bottom-color:var(--p2)}
+.fib-input.correct{border-bottom-color:var(--g2);color:var(--g3)}
+.fib-input.wrong{border-bottom-color:var(--r2);color:var(--r2)}
+.fib-hint{font-size:12px;color:var(--fnt);margin-bottom:12px}
 
-  /* ── Result ── */
-  .result-wrap { text-align: center; padding: 2rem 0 1.5rem; }
-  .result-stars { font-size: 28px; margin-bottom: 6px; }
-  .result-score { font-size: 52px; font-weight: 800; color: var(--green-2); letter-spacing: -0.04em; }
-  .result-sub { font-size: 14px; color: var(--muted); margin-top: 4px; margin-bottom: 1.5rem; }
-  .ai-box {
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 14px;
-    font-size: 13px; line-height: 1.7; color: var(--text);
-    min-height: 56px; margin-bottom: 1.5rem; text-align: left;
-  }
-  .ai-loading { color: var(--faint); font-style: italic; }
+/* ── QUIZ ── */
+.quiz-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.25rem;margin-bottom:1rem}
+.qprog-bar{height:3px;background:#ebebeb;border-radius:2px;margin-bottom:1rem}
+.qprog-fill{height:100%;background:var(--g2);border-radius:2px;transition:width .3s}
+.quiz-label{font-size:11px;color:var(--fnt);margin-bottom:8px}
+.quiz-q{font-size:16px;font-weight:600;margin-bottom:1rem;line-height:1.5}
+.options{display:flex;flex-direction:column;gap:8px}
+.opt{padding:11px 15px;border:1px solid var(--bdr2);border-radius:var(--rads);cursor:pointer;font-size:14px;background:var(--surf);text-align:left;font-family:inherit;transition:border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:var(--g2);background:var(--g0)}
+.opt.correct{background:var(--g0);border-color:var(--g2);color:var(--g4);font-weight:600}
+.opt.wrong{background:var(--r0);border-color:var(--r2);color:var(--r2)}
+.opt:disabled{cursor:default}
+.feedback{border-radius:var(--rads);padding:10px 14px;font-size:13px;margin-top:10px;line-height:1.6}
+.fb-good{background:var(--g0);color:var(--g4)}.fb-bad{background:var(--r0);color:var(--r2)}
 
-  /* ── Buttons ── */
-  .btn-primary {
-    width: 100%; background: var(--green-2); color: #fff;
-    border: none; border-radius: var(--radius-sm); padding: 12px;
-    font-size: 15px; font-weight: 600; cursor: pointer;
-    font-family: inherit; transition: background .15s;
-  }
-  .btn-primary:hover { background: var(--green-3); }
-  .btn-ghost {
-    width: 100%; background: none; border: 1px solid var(--border2);
-    border-radius: var(--radius-sm); padding: 11px;
-    font-size: 14px; cursor: pointer; color: var(--muted);
-    font-family: inherit; margin-top: 8px; transition: border-color .15s, color .15s;
-  }
-  .btn-ghost:hover { border-color: var(--border2); color: var(--text); }
+/* ── RESULT ── */
+.result-wrap{text-align:center;padding:2rem 0 1.5rem}
+.res-stars{font-size:28px;margin-bottom:6px}
+.res-score{font-size:52px;font-weight:800;color:var(--g2);letter-spacing:-.04em}
+.res-sub{font-size:14px;color:var(--mut);margin-top:4px;margin-bottom:1.5rem}
+.ai-box{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rads);padding:14px;font-size:13px;line-height:1.7;color:var(--txt);min-height:56px;margin-bottom:1.5rem;text-align:left}
+.ai-loading{color:var(--fnt);font-style:italic}
 
-  section-label {
-    display: block; font-size: 12px; font-weight: 700;
-    color: var(--faint); text-transform: uppercase;
-    letter-spacing: 0.06em; margin-bottom: 8px;
-  }
+/* ── BUTTONS ── */
+.btn-primary{width:100%;background:var(--g2);color:#fff;border:none;border-radius:var(--rads);padding:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-primary:hover{background:var(--g3)}
+.btn-ghost{width:100%;background:none;border:1px solid var(--bdr2);border-radius:var(--rads);padding:11px;font-size:14px;cursor:pointer;color:var(--mut);font-family:inherit;margin-top:8px;transition:border-color .15s}
+.btn-ghost:hover{color:var(--txt);border-color:var(--bdr2)}
+.btn-check{background:var(--g2);color:#fff;border:none;border-radius:var(--rads);padding:9px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
+.btn-check:hover{background:var(--g3)}
+.btn-next{background:var(--g2);color:#fff;border:none;border-radius:var(--rads);padding:9px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;display:none}
+.btn-next:hover{background:var(--g3)}
 
-  h2 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+h2{font-size:17px;font-weight:700;margin-bottom:10px}
+.divider{height:1px;background:var(--bdr);margin:1.25rem 0}
 
-  @media (max-width: 540px) {
-    .metrics { grid-template-columns: repeat(2, 1fr); }
-    .units { grid-template-columns: 1fr; }
-    .word-grid { grid-template-columns: repeat(2, 1fr); }
-    .heatmap-grid { grid-template-columns: repeat(26, 1fr); }
-  }
+@media(max-width:560px){
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .units{grid-template-columns:1fr}
+  .word-grid{grid-template-columns:repeat(2,1fr)}
+  .hmap-grid{grid-template-columns:repeat(26,1fr)}
+  .gram-ex{flex-direction:column;gap:2px}
+}
 </style>
 </head>
 <body>
 <div class="shell">
 
-  <!-- DASHBOARD -->
-  <div class="screen active" id="s-dashboard">
-    <div class="topbar">
-      <div class="topbar-brand">Czech<span>Learn</span></div>
-      <span class="badge badge-amber" id="dash-streak">🔥 0 days</span>
-      <span class="badge badge-green" id="dash-xp">⭐ 0 XP</span>
-    </div>
-
-    <div class="metrics">
-      <div class="metric"><div class="metric-val" id="m-xp">0</div><div class="metric-lbl">Total XP</div></div>
-      <div class="metric"><div class="metric-val" id="m-done">0</div><div class="metric-lbl">Lessons done</div></div>
-      <div class="metric"><div class="metric-val" id="m-words">0</div><div class="metric-lbl">Words learned</div></div>
-      <div class="metric"><div class="metric-val" id="m-acc">—</div><div class="metric-lbl">Accuracy</div></div>
-    </div>
-
-    <div class="heatmap-section">
-      <div class="heatmap-title">Daily activity — last 12 months</div>
-      <div class="heatmap-grid" id="heatmap"></div>
-      <div class="hmap-legend">
-        Less
-        <div class="legend-cell" style="background:#ebebeb"></div>
-        <div class="legend-cell" style="background:var(--green-0)"></div>
-        <div class="legend-cell" style="background:var(--green-1)"></div>
-        <div class="legend-cell" style="background:var(--green-2)"></div>
-        <div class="legend-cell" style="background:var(--green-3)"></div>
-        More
-      </div>
-    </div>
-
-    <h2>Course units</h2>
-    <div class="units" id="units-grid"></div>
+<!-- DASHBOARD -->
+<div class="screen active" id="s-dash">
+  <div class="topbar">
+    <div class="brand">Czech<span>Learn</span> <span style="font-size:12px;font-weight:400;color:var(--fnt)">A2</span></div>
+    <span class="badge ba" id="d-streak">🔥 0 days</span>
+    <span class="badge bg" id="d-xp">⭐ 0 XP</span>
   </div>
-
-  <!-- UNIT -->
-  <div class="screen" id="s-unit">
-    <div class="topbar">
-      <button class="btn-back" onclick="goTo('s-dashboard')">← Dashboard</button>
-      <div style="flex:1;font-size:16px;font-weight:700" id="unit-hdr"></div>
-    </div>
-    <div class="tip-box" id="unit-tip"></div>
-    <section-label>Vocabulary</section-label>
-    <div class="word-grid" id="word-grid"></div>
-    <h2>Lessons</h2>
-    <div class="lessons" id="lessons-list"></div>
+  <div class="metrics">
+    <div class="metric"><div class="metric-val" id="m-xp">0</div><div class="metric-lbl">Total XP</div></div>
+    <div class="metric"><div class="metric-val" id="m-les">0</div><div class="metric-lbl">Lessons done</div></div>
+    <div class="metric"><div class="metric-val" id="m-wds">0</div><div class="metric-lbl">Words learned</div></div>
+    <div class="metric"><div class="metric-val" id="m-acc">—</div><div class="metric-lbl">Quiz accuracy</div></div>
   </div>
-
-  <!-- LESSON / QUIZ -->
-  <div class="screen" id="s-lesson">
-    <div class="topbar">
-      <button class="btn-back" id="lesson-back">← Unit</button>
-      <div style="flex:1;font-size:15px;font-weight:700" id="lesson-hdr"></div>
-      <span class="badge badge-green" id="lesson-xp-badge"></span>
-    </div>
-    <div id="quiz-area"></div>
+  <div class="hmap-wrap">
+    <div class="sec-label">Daily activity — last 12 months</div>
+    <div class="hmap-grid" id="heatmap"></div>
+    <div class="hmap-leg">Less <div class="leg-cell" style="background:#ebebeb"></div><div class="leg-cell" style="background:var(--g0)"></div><div class="leg-cell" style="background:var(--g1)"></div><div class="leg-cell" style="background:var(--g2)"></div><div class="leg-cell" style="background:var(--g3)"></div> More</div>
   </div>
-
-  <!-- RESULT -->
-  <div class="screen" id="s-result">
-    <div class="topbar">
-      <div class="topbar-brand">Czech<span>Learn</span></div>
-    </div>
-    <div class="result-wrap">
-      <div class="result-stars" id="res-stars"></div>
-      <div class="result-score" id="res-score"></div>
-      <div class="result-sub" id="res-sub"></div>
-    </div>
-    <div class="ai-box" id="res-ai"><span class="ai-loading">Getting personalised feedback…</span></div>
-    <button class="btn-primary" id="res-next">Continue</button>
-    <button class="btn-ghost" onclick="goTo('s-dashboard')">Back to dashboard</button>
-  </div>
-
+  <h2>A2 Course units</h2>
+  <div class="units" id="units-grid"></div>
 </div>
 
+<!-- UNIT -->
+<div class="screen" id="s-unit">
+  <div class="topbar">
+    <button class="btn-back" onclick="goTo('s-dash')">← Dashboard</button>
+    <div style="flex:1;font-size:16px;font-weight:700" id="unit-hdr"></div>
+  </div>
+  <div class="tip-box" id="unit-tip"></div>
+  <div class="sec-label">Key vocabulary</div>
+  <div class="word-grid" id="word-grid"></div>
+  <h2>Lessons</h2>
+  <div class="lessons" id="les-list"></div>
+</div>
+
+<!-- LESSON RUNNER -->
+<div class="screen" id="s-lesson">
+  <div class="topbar">
+    <button class="btn-back" id="les-back">← Unit</button>
+    <div style="flex:1;font-size:15px;font-weight:700" id="les-hdr"></div>
+    <span class="badge bg" id="les-xp"></span>
+  </div>
+  <div id="lesson-content"></div>
+  <div style="display:flex;gap:8px;margin-top:4px">
+    <button class="btn-check" id="btn-check" style="display:none" onclick="checkFIB()">Check answers</button>
+    <button class="btn-next" id="btn-next" onclick="nextStep()">Continue →</button>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="screen" id="s-result">
+  <div class="topbar"><div class="brand">Czech<span>Learn</span></div></div>
+  <div class="result-wrap">
+    <div class="res-stars" id="res-stars"></div>
+    <div class="res-score" id="res-score"></div>
+    <div class="res-sub" id="res-sub"></div>
+  </div>
+  <div class="ai-box" id="res-ai"><span class="ai-loading">Getting personalised feedback…</span></div>
+  <button class="btn-primary" id="res-next">Continue</button>
+  <button class="btn-ghost" onclick="goTo('s-dash')">Back to dashboard</button>
+</div>
+
+</div><!-- /shell -->
 <script>
-// ── Course data ──────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════
+// COURSE DATA  (A2 level — 4 units, multi-lesson-type each)
+// ═══════════════════════════════════════════════════════════
 const COURSE = [
-  {
-    id:'u1', title:'Greetings & Basics', emoji:'👋',
-    desc:'Say hello, introduce yourself, and be polite.',
-    tip:'Czech greetings change by time of day. "Dobrý den" is the formal daytime greeting; "Ahoj" is casual and used freely among friends.',
-    words:[['Dobrý den','Good day'],['Ahoj','Hi / Bye'],['Děkuji','Thank you'],['Prosím','Please / You\'re welcome'],['Ano','Yes'],['Ne','No']],
-    lessons:[
-      {id:'u1l1',title:'Hello & Goodbye',xp:20,qs:[
-        {q:'How do you say "Hello" formally in Czech?',opts:['Ahoj','Dobrý den','Nashledanou','Dobrou noc'],ans:1,hint:'Used during the day in formal or professional settings.'},
-        {q:'What does "Nashledanou" mean?',opts:['Good morning','Please','Goodbye','Thank you'],ans:2,hint:'You say this when leaving someone.'},
-        {q:'Which greeting is casual and used among friends?',opts:['Dobrý den','Dobrý večer','Ahoj','Dobrý ráno'],ans:2,hint:'Works for both hello and bye.'},
-      ]},
-      {id:'u1l2',title:'Please & Thank you',xp:20,qs:[
-        {q:'How do you say "Thank you" in Czech?',opts:['Prosím','Ano','Děkuji','Ne'],ans:2,hint:'Starts with D.'},
-        {q:'"Prosím" can mean which two things?',opts:['Yes and No','Please and You\'re welcome','Thank you and Sorry','Hello and Bye'],ans:1,hint:'It works in both requesting and responding.'},
-        {q:'What is "Yes" in Czech?',opts:['Ne','Prosím','Ano','Ahoj'],ans:2,hint:'Short and simple, similar to many Slavic languages.'},
-      ]},
-      {id:'u1l3',title:'Numbers 1–5',xp:25,qs:[
-        {q:'What is "jedna" in English?',opts:['Two','Three','One','Four'],ans:2,hint:'The very first number.'},
-        {q:'"Tři" means…',opts:['Two','Three','Four','Five'],ans:1,hint:'Sounds similar to the English word.'},
-        {q:'"Pět" is which number?',opts:['Four','Three','Six','Five'],ans:3,hint:'The last finger on one hand.'},
-      ]},
-    ]
-  },
-  {
-    id:'u2', title:'Food & Drinks', emoji:'🍺',
-    desc:'Order at a Czech pub and navigate a menu.',
-    tip:'"Hospoda" is the Czech pub — a cultural institution. Knowing how to order a "pivo" (beer) will earn you instant respect. Czech beer is world-famous!',
-    words:[['Pivo','Beer'],['Voda','Water'],['Jídlo','Food'],['Chléb','Bread'],['Sýr','Cheese'],['Káva','Coffee']],
-    lessons:[
-      {id:'u2l1',title:'At the pub',xp:20,qs:[
-        {q:'How do you say "beer" in Czech?',opts:['Voda','Káva','Pivo','Čaj'],ans:2,hint:'Czech Republic is the world\'s biggest beer consumer per capita.'},
-        {q:'What does "Jedno pivo, prosím" mean?',opts:['Two beers please','One coffee please','One beer please','No beer please'],ans:2,hint:'"Jedno" means one.'},
-        {q:'What is "voda"?',opts:['Wine','Beer','Coffee','Water'],ans:3,hint:'Essential for life — H₂O.'},
-      ]},
-      {id:'u2l2',title:'Ordering food',xp:25,qs:[
-        {q:'"Chléb" means…',opts:['Meat','Bread','Butter','Soup'],ans:1,hint:'A staple of Czech cuisine, often dark and dense.'},
-        {q:'The polite phrase "I would like…" in Czech is…',opts:['Chci','Chtěl bych','Mám','Dám si'],ans:1,hint:'"Chtěl bych" is more formal and polite.'},
-        {q:'"Sýr" is Czech for…',opts:['Butter','Salt','Cheese','Cream'],ans:2,hint:'Served in many Czech dishes and snacks.'},
-      ]},
-      {id:'u2l3',title:'Paying the bill',xp:25,qs:[
-        {q:'How do you ask for the bill?',opts:['Kde je záchod?','Zaplatím.','Účet, prosím.','Dám si pivo.'],ans:2,hint:'"Účet" means bill or receipt.'},
-        {q:'What does "Kolik to stojí?" mean?',opts:['Where is it?','Is this free?','How much does it cost?','Do you have more?'],ans:2,hint:'"Kolik" = how much.'},
-        {q:'To say "Keep the change," you say…',opts:['Vraťte drobné.','Nechte si drobné.','Kde je ATM?','Platím kartou.'],ans:1,hint:'"Nechte si" = keep for yourself.'},
-      ]},
-    ]
-  },
-  {
-    id:'u3', title:'Getting Around', emoji:'🚌',
-    desc:'Navigate Prague by metro, tram, and on foot.',
-    tip:'Prague\'s metro has 3 lines: A (green), B (yellow), C (red). The word for station is "stanice" and for tram stop it\'s "zastávka."',
-    words:[['Kde','Where'],['Vlevo','Left'],['Vpravo','Right'],['Rovně','Straight ahead'],['Stanice','Metro station'],['Zastávka','Bus/tram stop']],
-    lessons:[
-      {id:'u3l1',title:'Asking directions',xp:20,qs:[
-        {q:'"Kde je…?" means…',opts:['How far is…?','Where is…?','Is there a…?','What is…?'],ans:1,hint:'"Kde" = where.'},
-        {q:'How do you say "Go left"?',opts:['Jděte rovně','Zastavte','Jděte vlevo','Jděte vpravo'],ans:2,hint:'"Vlevo" = to the left.'},
-        {q:'"Rovně" means…',opts:['Turn back','Stop here','Straight ahead','On the right'],ans:2,hint:'Go in a straight line, don\'t turn.'},
-      ]},
-      {id:'u3l2',title:'Public transport',xp:25,qs:[
-        {q:'What is a "zastávka"?',opts:['A train station','A bus or tram stop','A taxi rank','A car park'],ans:1,hint:'You\'ll see these everywhere on Prague streets.'},
-        {q:'How do you say "one ticket please"?',opts:['Jedno lístek prosím','Jedno nádraží prosím','Jeden jízdní lístek prosím','Jeden vlak prosím'],ans:2,hint:'"Jízdní lístek" = travel ticket.'},
-        {q:'"Příští stanice" means…',opts:['Last station','Change here','Next station','Exit here'],ans:2,hint:'You hear this announcement on the metro.'},
-      ]},
-    ]
-  },
-  {
-    id:'u4', title:'People & Family', emoji:'👨‍👩‍👧',
-    desc:'Talk about family and describe people.',
-    tip:'Czech nouns have grammatical gender — masculine, feminine, and neuter. Adjectives must agree with the noun\'s gender, which takes practice but becomes natural over time.',
-    words:[['Rodina','Family'],['Matka','Mother'],['Otec','Father'],['Bratr','Brother'],['Sestra','Sister'],['Přítel','Friend / Boyfriend']],
-    lessons:[
-      {id:'u4l1',title:'Family members',xp:20,qs:[
-        {q:'What is "matka"?',opts:['Sister','Grandmother','Mother','Aunt'],ans:2,hint:'The female parent.'},
-        {q:'"Bratr" means…',opts:['Father','Brother','Uncle','Son'],ans:1,hint:'Male sibling.'},
-        {q:'How do you say "family"?',opts:['Děti','Přítel','Rodina','Sestra'],ans:2,hint:'Root of many Czech family-related words.'},
-      ]},
-      {id:'u4l2',title:'Describing people',xp:25,qs:[
-        {q:'"Vysoký" means…',opts:['Short','Fat','Tall','Old'],ans:2,hint:'The opposite of "malý" (small/short).'},
-        {q:'How do you say "She is kind"?',opts:['Je hezká','Je hodná','Je mladá','Je chytrá'],ans:1,hint:'"Hodná" means kind or good-natured.'},
-        {q:'"Starý" means…',opts:['Young','Happy','Old','Angry'],ans:2,hint:'Opposite of "mladý" (young).'},
-      ]},
-    ]
-  },
+{
+  id:'u1',title:'Daily Routines',emoji:'☀️',
+  desc:'Talk about your day, times, and everyday activities.',
+  tip:'Czech verbs change their ending depending on the subject. The infinitive usually ends in -t or -at. We will focus on the present tense for common verbs.',
+  words:[
+    ['vstávat','to get up','VSTA-vat'],['snídat','to have breakfast','SNEE-dat'],
+    ['pracovat','to work','PRA-tso-vat'],['obědvat','to have lunch','O-byed-vat'],
+    ['večeřet','to have dinner','VE-che-rzhet'],['spát','to sleep','spaat'],
+    ['ráno','morning','RAA-no'],['večer','evening','VE-cher'],
+    ['každý den','every day','KAZH-dee den'],['brzy','early','BR-zi'],
+  ],
+  lessons:[
+    {
+      id:'u1l1',title:'A day in Prague',type:'read',xp:30,
+      data:{
+        intro:'Read this short diary entry from Tomáš, a 28-year-old graphic designer living in Prague. Hover over underlined words to see their meaning.',
+        czechText:`Jmenuji se Tomáš. Každý den <span class="cz-word" title="I get up">vstávám</span> v šest hodin ráno. Nejdřív <span class="cz-word" title="I take a shower">se sprchu</span> a pak <span class="cz-word" title="I have breakfast">snídám</span> — obvykle chleba s máslem a kávu. V osm hodin <span class="cz-word" title="I go">jdu</span> do práce metrem. <span class="cz-word" title="I work">Pracuji</span> jako grafik v centru Prahy. V poledne <span class="cz-word" title="I have lunch">obědvám</span> v restauraci nebo nosím jídlo z domu. Odpoledne <span class="cz-word" title="I have meetings">mám schůzky</span>. Večer se <span class="cz-word" title="I return">vracím</span> domů kolem šesti. <span class="cz-word" title="I cook">Vařím</span> nebo si objednám jídlo. Ve deset <span class="cz-word" title="I go to sleep">jdu spát</span>.`,
+        translation:`My name is Tomáš. Every day I get up at six in the morning. First I take a shower and then I have breakfast — usually bread with butter and coffee. At eight I go to work by metro. I work as a graphic designer in the centre of Prague. At noon I have lunch in a restaurant or I bring food from home. In the afternoon I have meetings. In the evening I return home around six. I cook or I order food. At ten I go to sleep.`,
+        vocab:[
+          {cz:'vstávám',en:'I get up',ex:'Vstávám v šest. — I get up at six.'},
+          {cz:'snídám',en:'I have breakfast',ex:'Co snídáš? — What do you have for breakfast?'},
+          {cz:'pracuji',en:'I work',ex:'Pracuji v bance. — I work in a bank.'},
+          {cz:'obědvám',en:'I have lunch',ex:'Obědvám ve dvě. — I have lunch at two.'},
+          {cz:'vařím',en:'I cook',ex:'Vařím každý den. — I cook every day.'},
+          {cz:'jdu spát',en:'I go to sleep',ex:'Jdu spát v jedenáct. — I go to sleep at eleven.'},
+        ]
+      }
+    },
+    {
+      id:'u1l2',title:'Telling the time',type:'listen',xp:25,
+      data:{
+        intro:'Listen to these dialogues about time and daily schedule. Press the speaker button to hear each sentence read aloud.',
+        dialogs:[
+          {speaker:'A',name:'Jana',cz:'Kolik je hodin?',en:'What time is it?'},
+          {speaker:'B',name:'Marek',cz:'Je půl deváté.',en:'It\'s half past eight.'},
+          {speaker:'A',name:'Jana',cz:'Kdy vstáváš?',en:'When do you get up?'},
+          {speaker:'B',name:'Marek',cz:'Vstávám v sedm hodin ráno.',en:'I get up at seven in the morning.'},
+          {speaker:'A',name:'Jana',cz:'A kdy jdeš spát?',en:'And when do you go to sleep?'},
+          {speaker:'B',name:'Marek',cz:'Obvykle ve deset nebo v jedenáct večer.',en:'Usually at ten or eleven in the evening.'},
+          {speaker:'A',name:'Jana',cz:'To je brzo! Já chodím spát ve dvanáct.',en:'That\'s early! I go to sleep at midnight.'},
+        ],
+        notes:[
+          'Czech tells time differently: "půl deváté" literally means "half of nine" = 8:30',
+          '"Ráno" = morning, "Odpoledne" = afternoon, "Večer" = evening',
+          'The question "Kolik je hodin?" literally means "How many hours is it?"',
+        ]
+      }
+    },
+    {
+      id:'u1l3',title:'Present tense verbs',type:'grammar',xp:35,
+      data:{
+        sections:[
+          {
+            title:'Regular -at verbs (e.g. vstávat — to get up)',
+            rule:'Most common Czech verbs follow the -at pattern. Drop -at and add these endings:',
+            table:{
+              headers:['Person','Ending','Example'],
+              rows:[
+                ['já (I)','-ám','vstávám'],
+                ['ty (you)','-áš','vstáváš'],
+                ['on/ona (he/she)','-á','vstává'],
+                ['my (we)','-áme','vstáváme'],
+                ['vy (you pl.)','-áte','vstáváte'],
+                ['oni (they)','-ají','vstávají'],
+              ],
+              highlight:[0]
+            },
+            examples:[
+              {cz:'Každý den vstávám v sedm.',en:'I get up at seven every day.'},
+              {cz:'Kdy vstáváš?',en:'When do you get up?'},
+              {cz:'Ona vstává pozdě.',en:'She gets up late.'},
+            ]
+          },
+          {
+            title:'Irregular: být (to be)',
+            rule:'"Být" is the most important irregular verb. It changes completely — memorise these forms:',
+            table:{
+              headers:['Person','Form','Example'],
+              rows:[
+                ['já','jsem','Jsem student.'],
+                ['ty','jsi','Jsi unavený?'],
+                ['on/ona','je','Je šest hodin.'],
+                ['my','jsme','Jsme doma.'],
+                ['vy','jste','Jste Češi?'],
+                ['oni','jsou','Jsou v práci.'],
+              ],
+              highlight:[2]
+            },
+            examples:[
+              {cz:'Je půl deváté.',en:'It is half past eight.'},
+              {cz:'Jsem unavený/á.',en:'I am tired.'},
+              {cz:'Oni jsou doma.',en:'They are at home.'},
+            ]
+          }
+        ]
+      }
+    },
+    {
+      id:'u1l4',title:'Fill in the blanks',type:'fib',xp:30,
+      data:{
+        instruction:'Complete the sentences using the correct verb form. Type your answer in each blank.',
+        items:[
+          {before:'Každý den ',after:' v sedm hodin.',answer:'vstávám',hint:'I get up (já)'},
+          {before:'Ona ',after:' v restauraci.',answer:'pracuje',hint:'she works'},
+          {before:'Kolik ',after:' hodin?',answer:'je',hint:'to be (3rd person)'},
+          {before:'My ',after:' kávu ráno.',answer:'pijeme',hint:'we drink'},
+          {before:'Kdy ',after:' spát?',answer:'jdeš',hint:'you go (ty)'},
+        ]
+      }
+    },
+    {
+      id:'u1l5',title:'Daily routine quiz',type:'quiz',xp:40,
+      data:{qs:[
+        {q:'What does "Vstávám v šest" mean?',opts:['I sleep at six','I get up at six','I eat at six','I work at six'],ans:1,hint:'"Vstávám" = I get up, "v šest" = at six.'},
+        {q:'How do you say "She works" in Czech?',opts:['Pracuji','Pracujeme','Pracuje','Pracuješ'],ans:2,hint:'Third person singular of pracovat.'},
+        {q:'What is "půl deváté" in English?',opts:['Nine o\'clock','Half past nine','Half past eight','Quarter past nine'],ans:2,hint:'"Půl" = half, "deváté" = of ninth → 8:30.'},
+        {q:'Which is the correct question for "What time is it?"',opts:['Kolik máš hodin?','Kolik je hodin?','Kdy je čas?','Co je hodina?'],ans:1,hint:'"Kolik je hodin?" is the standard phrase.'},
+        {q:'Complete: "Jdu ___ v deset večer."',opts:['pracovat','snídat','spát','obědvat'],ans:2,hint:'"Jdu spát" = I go to sleep.'},
+      ]}
+    },
+  ]
+},
+{
+  id:'u2',title:'Food & Restaurant',emoji:'🍽️',
+  desc:'Order food, understand a menu, and talk about what you like.',
+  tip:'Accusative case: when something is the object of an action (e.g. "I eat bread"), nouns change their ending. Masculine animate nouns add -a, many others stay the same at A2.',
+  words:[
+    ['jídelní lístek','menu','YEE-del-nee LIS-tek'],['objednat si','to order','ob-YED-nat si'],
+    ['snídaně','breakfast','SNEE-da-nye'],['oběd','lunch','O-byed'],
+    ['večeře','dinner','VE-che-rzhe'],['polévka','soup','po-LAYV-ka'],
+    ['hlavní jídlo','main course','HLAV-nee YEE-dlo'],['dezert','dessert','DE-zert'],
+    ['platit','to pay','PLA-tit'],['účet','bill','OO-chet'],
+  ],
+  lessons:[
+    {
+      id:'u2l1',title:'At the restaurant',type:'read',xp:30,
+      data:{
+        intro:'Read this conversation between two friends deciding what to eat at a Czech restaurant.',
+        czechText:`Lucie a Pavel <span class="cz-word" title="sit down">si sedají</span> u stolu v restauraci. Číšník přináší <span class="cz-word" title="menu">jídelní lístek</span>.\n\n<b>Lucie:</b> Co si <span class="cz-word" title="will you order?">objednáš</span>?\n<b>Pavel:</b> Nevím ještě. Polévka vypadá <span class="cz-word" title="delicious">výborně</span>. A ty?\n<b>Lucie:</b> Já si dám svíčkovou. Je to <span class="cz-word" title="traditional Czech dish">typické české jídlo</span> — hovězí maso v krémové omáčce s knedlíky.\n<b>Pavel:</b> Zní to dobře! Já si objednám svíčkovou také. A k pití?\n<b>Lucie:</b> Minerální vodu, prosím. A ty?\n<b>Pavel:</b> Jedno pivo, prosím. Číšník! <span class="cz-word" title="We'd like to order">Chtěli bychom si objednat</span>, prosím.\n<b>Číšník:</b> Samozřejmě. Co si přejete?`,
+        translation:`Lucie and Pavel sit down at a table in the restaurant. The waiter brings the menu.\n\nLucie: What will you order?\nPavel: I don't know yet. The soup looks delicious. And you?\nLucie: I'll have svíčková. It's a traditional Czech dish — beef in a cream sauce with dumplings.\nPavel: That sounds good! I'll order svíčková too. And to drink?\nLucie: Mineral water, please. And you?\nPavel: One beer, please. Waiter! We'd like to order, please.\nWaiter: Of course. What would you like?`,
+        vocab:[
+          {cz:'Chtěl/a bych',en:'I would like',ex:'Chtěl bych kávu. — I would like a coffee.'},
+          {cz:'Co si dáte?',en:'What will you have?',ex:'Formal version used by waiters.'},
+          {cz:'Vypadá výborně',en:'Looks delicious',ex:'Ta polévka vypadá výborně.'},
+          {cz:'k pití',en:'to drink',ex:'Co si dáte k pití? — What will you have to drink?'},
+          {cz:'Číšník / číšnice',en:'Waiter / waitress',ex:'Číšník! Účet, prosím.'},
+          {cz:'Samozřejmě',en:'Of course',ex:'Common polite reply.'},
+        ]
+      }
+    },
+    {
+      id:'u2l2',title:'Ordering food',type:'listen',xp:25,
+      data:{
+        intro:'Listen to these useful phrases for ordering in a Czech restaurant. Each phrase is something you would really use.',
+        dialogs:[
+          {speaker:'A',name:'You',cz:'Dobrý den. Máte volný stůl pro dvě osoby?',en:'Good day. Do you have a free table for two?'},
+          {speaker:'B',name:'Číšník',cz:'Ano, pojďte dál. Zde je váš stůl.',en:'Yes, come in. Here is your table.'},
+          {speaker:'A',name:'You',cz:'Prosím jídelní lístek.',en:'The menu, please.'},
+          {speaker:'B',name:'Číšník',cz:'Okamžik. Jste připraveni objednat?',en:'One moment. Are you ready to order?'},
+          {speaker:'A',name:'You',cz:'Ano. Dám si svíčkovou a minerální vodu.',en:'Yes. I\'ll have svíčková and mineral water.'},
+          {speaker:'B',name:'Číšník',cz:'Výborně. Přeji dobrou chuť!',en:'Excellent. Enjoy your meal!'},
+          {speaker:'A',name:'You',cz:'Účet, prosím.',en:'The bill, please.'},
+        ],
+        notes:[
+          '"Dám si" literally means "I will give myself" — the standard way to order in Czech',
+          '"Dobrou chuť" = Bon appétit. Always say this before eating with others.',
+          'Czech restaurants often include "service" in the price — check before tipping',
+        ]
+      }
+    },
+    {
+      id:'u2l3',title:'Food vocabulary deep-dive',type:'grammar',xp:35,
+      data:{
+        sections:[
+          {
+            title:'Czech food you must know',
+            rule:'These are real Czech dishes and drinks you\'ll encounter every day. Learn both the word and what it actually is.',
+            table:{
+              headers:['Czech','English','Notes'],
+              rows:[
+                ['svíčková','beef in cream sauce','Served with bread dumplings (knedlíky) and cranberry jam'],
+                ['knedlíky','dumplings','Bread or potato; the quintessential Czech side dish'],
+                ['guláš','goulash','Czech-style beef stew, usually served with knedlíky'],
+                ['řízek','schnitzel','Breaded and fried pork/chicken cutlet'],
+                ['bramborák','potato pancake','Fried, garlicky, crispy — popular street food'],
+                ['trdelník','chimney cake','Sweet pastry, popular tourist treat in Prague'],
+              ],
+              highlight:[]
+            },
+            examples:[
+              {cz:'Dám si guláš s knedlíky.',en:'I\'ll have goulash with dumplings.'},
+              {cz:'Máte vegetariánské jídlo?',en:'Do you have vegetarian food?'},
+              {cz:'Je to bez lepku?',en:'Is it gluten-free?'},
+            ]
+          },
+          {
+            title:'Expressing preferences',
+            rule:'Use "mít rád/ráda" (to like) to talk about food preferences. The form changes by gender:',
+            table:{
+              headers:['Subject','Masculine','Feminine'],
+              rows:[
+                ['já','mám rád','mám ráda'],
+                ['ty','máš rád','máš ráda'],
+                ['on/ona','má rád','má ráda'],
+              ],
+              highlight:[0]
+            },
+            examples:[
+              {cz:'Mám rád/ráda svíčkovou.',en:'I like svíčková.'},
+              {cz:'Nemám rád/ráda pálivé jídlo.',en:'I don\'t like spicy food.'},
+              {cz:'Máš rád/ráda českou kuchyni?',en:'Do you like Czech cuisine?'},
+            ]
+          }
+        ]
+      }
+    },
+    {
+      id:'u2l4',title:'Restaurant fill in blanks',type:'fib',xp:30,
+      data:{
+        instruction:'Fill in the missing words to complete these restaurant conversations.',
+        items:[
+          {before:'Prosím ',after:'.',answer:'účet',hint:'the bill'},
+          {before:'Dám si svíčkovou a ',after:' vodu.',answer:'minerální',hint:'mineral'},
+          {before:'Máte volný stůl pro ',after:' osoby?',answer:'dvě',hint:'two'},
+          {before:'Co si ',after:'?',answer:'dáte',hint:'will you have (formal)'},
+          {before:'Přeji ',after:' chuť!',answer:'dobrou',hint:'enjoy your meal'},
+        ]
+      }
+    },
+    {
+      id:'u2l5',title:'Food & restaurant quiz',type:'quiz',xp:40,
+      data:{qs:[
+        {q:'How do you politely say "I would like" when ordering food?',opts:['Chci','Chtěl/a bych','Dej mi','Potřebuji'],ans:1,hint:'"Chtěl/a bych" is the conditional, more polite than "chci".'},
+        {q:'What is "svíčková"?',opts:['A type of soup','Potato dumplings','Beef in cream sauce with dumplings','A Czech beer'],ans:2,hint:'One of the most beloved traditional Czech dishes.'},
+        {q:'A waiter says "Přeji dobrou chuť!" — what does this mean?',opts:['Here is your bill','Can I help you?','Enjoy your meal!','Thank you, goodbye!'],ans:2,hint:'Said before or during eating.'},
+        {q:'How does a woman say "I like Czech food"?',opts:['Mám rád českou kuchyni.','Mám ráda českou kuchyni.','Mám rádo českou kuchyni.','Mám rády českou kuchyni.'],ans:1,hint:'Women use "ráda", men use "rád".'},
+        {q:'What does "Máte vegetariánské jídlo?" ask?',opts:['Is this food fresh?','Do you have vegetarian food?','Is there a menu?','How much does food cost?'],ans:1,hint:'"Vegetariánské jídlo" = vegetarian food.'},
+      ]}
+    },
+  ]
+},
+{
+  id:'u3',title:'Getting Around Prague',emoji:'🚌',
+  desc:'Navigate the city, ask for directions, and use public transport.',
+  tip:'Prague has an excellent integrated transport system — metro, tram, and bus. A single "jízdenka" (ticket) works on all three. Validate it before boarding or you risk a fine!',
+  words:[
+    ['jízdenka','ticket','YEEZ-den-ka'],['přestoupit','to transfer/change','PRZHE-stou-pit'],
+    ['zastávka','tram/bus stop','ZAS-taav-ka'],['stanice','metro station','STA-ni-tse'],
+    ['nalevo','to the left','na-LE-vo'],['napravo','to the right','na-PRA-vo'],
+    ['rovně','straight ahead','ROV-nye'],['přejít','to cross','PRZHE-yeet'],
+    ['blízko','near/close','BLEE-sko'],['daleko','far','DA-le-ko'],
+  ],
+  lessons:[
+    {
+      id:'u3l1',title:'Lost in Prague',type:'read',xp:30,
+      data:{
+        intro:'Read this conversation between a tourist (Eva) and a local (Ondřej) on a Prague street.',
+        czechText:`<b>Eva:</b> Promiňte, <span class="cz-word" title="could you help me?">mohl byste mi pomoci</span>? Hledám Staroměstské náměstí.\n<b>Ondřej:</b> Samozřejmě! Jdete správně. Jděte <span class="cz-word" title="straight ahead">rovně</span> asi dvě stě metrů, pak <span class="cz-word" title="turn left">zatočte doleva</span> u kostela.\n<b>Eva:</b> U toho velkého kostela?\n<b>Ondřej:</b> Ano, přesně. Pak <span class="cz-word" title="you will see">uvidíte</span> náměstí přímo před vámi. Je to asi pět minut pěšky.\n<b>Eva:</b> A je tam <span class="cz-word" title="close to">blízko</span> stanice metra?\n<b>Ondřej:</b> Ano, stanice Staroměstská je <span class="cz-word" title="right there">hned tady</span>, linka A. Víte, jak <span class="cz-word" title="to validate the ticket">validovat jízdenku</span>?\n<b>Eva:</b> Ano, vím. Díky moc!\n<b>Ondřej:</b> Není zač. Hezký výlet!`,
+        translation:`Eva: Excuse me, could you help me? I'm looking for Old Town Square.\nOndřej: Of course! You're going the right way. Go straight ahead about two hundred metres, then turn left at the church.\nEva: At that big church?\nOndřej: Yes, exactly. Then you'll see the square right in front of you. It's about five minutes on foot.\nEva: And is there a metro station close by?\nOndřej: Yes, Staroměstská station is right here, line A. Do you know how to validate the ticket?\nEva: Yes, I do. Thank you very much!\nOndřej: Don't mention it. Have a nice trip!`,
+        vocab:[
+          {cz:'Promiňte',en:'Excuse me (formal)',ex:'Promiňte, kde je záchod? — Excuse me, where is the toilet?'},
+          {cz:'Hledám',en:'I am looking for',ex:'Hledám hotel. — I am looking for a hotel.'},
+          {cz:'Jděte rovně',en:'Go straight',ex:'Jděte rovně sto metrů. — Go straight 100 metres.'},
+          {cz:'Zatočte doleva',en:'Turn left',ex:'Zatočte doleva u parku. — Turn left at the park.'},
+          {cz:'Pěšky',en:'On foot',ex:'Je to deset minut pěšky. — It\'s ten minutes on foot.'},
+          {cz:'Není zač',en:'Don\'t mention it',ex:'Czech equivalent of "you\'re welcome".'},
+        ]
+      }
+    },
+    {
+      id:'u3l2',title:'On the metro',type:'listen',xp:25,
+      data:{
+        intro:'Listen to these metro announcements and ticket-buying conversations you\'ll actually hear in Prague.',
+        dialogs:[
+          {speaker:'B',name:'Automat',cz:'Vyberte jízdenku. Základní jízdenka stojí třicet korun.',en:'Select your ticket. A basic ticket costs thirty crowns.'},
+          {speaker:'A',name:'Tourist',cz:'Prosím jízdenku na dvacet čtyři hodin.',en:'A 24-hour ticket, please.'},
+          {speaker:'B',name:'Prodavač',cz:'To je sto deset korun. Nezapomeňte validovat!',en:'That is 110 crowns. Don\'t forget to validate!'},
+          {speaker:'B',name:'Metro',cz:'Příští stanice: Muzeum. Přestup na linku C.',en:'Next station: Muzeum. Transfer to line C.'},
+          {speaker:'B',name:'Metro',cz:'Stanice Staroměstská. Dveře se otevírají vlevo.',en:'Staroměstská station. Doors open on the left.'},
+          {speaker:'A',name:'Tourist',cz:'Promiňte, jedete na Hlavní nádraží?',en:'Excuse me, does this go to the main train station?'},
+          {speaker:'B',name:'Local',cz:'Ano, přestoupíte na Muzeu na linku C.',en:'Yes, you transfer at Muzeum to line C.'},
+        ],
+        notes:[
+          'Prague metro lines: A (green), B (yellow), C (red)',
+          'Validate ("validovat") your ticket at the yellow machines BEFORE entering the platform',
+          '"Přestup" = transfer between lines. Very common word on the metro.',
+        ]
+      }
+    },
+    {
+      id:'u3l3',title:'Giving directions — grammar',type:'grammar',xp:35,
+      data:{
+        sections:[
+          {
+            title:'Imperative (commands) for giving directions',
+            rule:'To tell someone what to do, use the imperative form. For formal situations (strangers), use the "vy" (you plural/formal) form:',
+            table:{
+              headers:['Verb','Informal (ty)','Formal (vy)','Meaning'],
+              rows:[
+                ['jít','jdi','jděte','go'],
+                ['jet','jeď','jeďte','travel/ride'],
+                ['přestoupit','přestup','přestupte','transfer'],
+                ['zatočit','zatočit','zatočte','turn'],
+                ['přejít','přejdi','přejděte','cross'],
+              ],
+              highlight:[]
+            },
+            examples:[
+              {cz:'Jděte rovně, pak zatočte doleva.',en:'Go straight, then turn left.'},
+              {cz:'Přejděte přes most.',en:'Cross the bridge.'},
+              {cz:'Přestupte na linku B.',en:'Transfer to line B.'},
+            ]
+          },
+          {
+            title:'Prepositions of place',
+            rule:'Czech uses different prepositions depending on motion vs. location. Key ones at A2:',
+            table:{
+              headers:['Czech','English','Example'],
+              rows:[
+                ['v / ve + locative','in','Jsem v metru. — I\'m in the metro.'],
+                ['na + locative','at / on','Na zastávce. — At the stop.'],
+                ['do + genitive','to (motion)','Jdu do centra. — I\'m going to the centre.'],
+                ['z + genitive','from','Přicházím z Prahy. — I come from Prague.'],
+                ['u + genitive','next to / at','U kostela. — Next to the church.'],
+                ['přes + accusative','across','Přes most. — Across the bridge.'],
+              ],
+              highlight:[]
+            },
+            examples:[
+              {cz:'Jdu do stanice Muzeum.',en:'I am going to Muzeum station.'},
+              {cz:'Jsem u Václavského náměstí.',en:'I am at Wenceslas Square.'},
+              {cz:'Přejdi přes ulici.',en:'Cross the street.'},
+            ]
+          }
+        ]
+      }
+    },
+    {
+      id:'u3l4',title:'Directions fill in blanks',type:'fib',xp:30,
+      data:{
+        instruction:'Complete these direction-giving phrases correctly.',
+        items:[
+          {before:'Jděte ',after:' sto metrů.',answer:'rovně',hint:'straight ahead'},
+          {before:'Zatočte ',after:' u banky.',answer:'doleva',hint:'to the left'},
+          {before:'Přestupte na ',after:' A.',answer:'linku',hint:'line (accusative)'},
+          {before:'Je to pět minut ',after:'.',answer:'pěšky',hint:'on foot'},
+          {before:'',after:' je Staroměstská.',answer:'Příští stanice',hint:'next station'},
+        ]
+      }
+    },
+    {
+      id:'u3l5',title:'Getting around quiz',type:'quiz',xp:40,
+      data:{qs:[
+        {q:'How do you say "Excuse me" when stopping a stranger?',opts:['Promiňte','Nashledanou','Prosím','Díky'],ans:0,hint:'"Promiňte" is the formal imperative of "prominout" — to excuse.'},
+        {q:'What does "Přestupte na linku C" mean?',opts:['Get off at line C','Buy a ticket for line C','Transfer to line C','Line C is closed'],ans:2,hint:'"Přestupte" = transfer (formal imperative).'},
+        {q:'You need to validate your ticket — what is the Czech word for "validate"?',opts:['Kupovat','Validovat','Přestoupit','Cestovat'],ans:1,hint:'Borrowed from English/Latin, used directly in Czech.'},
+        {q:'"Je to daleko?" means…',opts:['Is it open?','Is it far?','Is it free?','Is it left?'],ans:1,hint:'"Daleko" = far.'},
+        {q:'To formally say "Go straight ahead," you say…',opts:['Jdi rovně','Jděte rovně','Jeď rovně','Pojď rovně'],ans:1,hint:'"Jděte" is the formal imperative of "jít".'},
+      ]}
+    },
+  ]
+},
+{
+  id:'u4',title:'Work & Everyday Life',emoji:'💼',
+  desc:'Talk about your job, schedule appointments, and handle everyday situations.',
+  tip:'Czech has a T-V distinction: use "ty" (informal) with friends and family, "vy" (formal) with strangers, elders, and colleagues you don\'t know well. Getting this wrong is noticeable!',
+  words:[
+    ['zaměstnání','job/employment','za-MYES-tna-nee'],['pracovní doba','working hours','PRA-tsov-nee DO-ba'],
+    ['kolega/kolegyně','colleague m/f','ko-LE-ga/ko-LE-gi-nye'],['schůzka','meeting/appointment','SKHOO-ska'],
+    ['dovolená','holiday/vacation','do-vo-LE-naa'],['nemocný/á','sick','ne-MOT-snee'],
+    ['plat','salary','plat'],['šéf/šéfová','boss m/f','shayf/SHAY-fo-vaa'],
+    ['sjednat schůzku','to arrange a meeting','SYED-nat SKHOO-sku'],['e-mail','email','ee-mayl'],
+  ],
+  lessons:[
+    {
+      id:'u4l1',title:'At the office',type:'read',xp:30,
+      data:{
+        intro:'Read this email exchange between two colleagues at a Prague company.',
+        czechText:`<b>Od:</b> katerina.novakova@firma.cz\n<b>Komu:</b> jan.dvorak@firma.cz\n<b>Předmět:</b> Schůzka ve středu\n\nDobrý den, Honzo,\n\nChci se zeptat, jestli <span class="cz-word" title="you are free">máte čas</span> ve středu odpoledne na schůzku ohledně nového projektu. <span class="cz-word" title="It would suit me">Hodilo by se mi</span> kolem třetí hodiny.\n\nPokud vám to <span class="cz-word" title="doesn't suit">nevyhovuje</span>, můžeme <span class="cz-word" title="arrange">domluvit</span> jiný termín. Jsem <span class="cz-word" title="available">k dispozici</span> celý týden kromě pátku.\n\nS pozdravem,\nKateřina\n\n---\n\n<b>Od:</b> jan.dvorak@firma.cz\n<b>Komu:</b> katerina.novakova@firma.cz\n\nDobrý den, Kateřino,\n\nDěkuji za e-mail. Středa ve tři mi <span class="cz-word" title="suits well">vyhovuje výborně</span>. <span class="cz-word" title="Shall we meet">Sejdeme se</span> v zasedací místnosti číslo dvě?\n\nS pozdravem,\nJan`,
+        translation:`From: katerina.novakova@firma.cz\nTo: jan.dvorak@firma.cz\nSubject: Meeting on Wednesday\n\nDear Jan,\n\nI wanted to ask if you have time on Wednesday afternoon for a meeting about the new project. Around three o'clock would suit me.\n\nIf that doesn't suit you, we can arrange a different time. I'm available all week except Friday.\n\nBest regards,\nKateřina\n\n---\n\nDear Kateřina,\n\nThank you for the email. Wednesday at three suits me perfectly. Shall we meet in meeting room number two?\n\nBest regards,\nJan`,
+        vocab:[
+          {cz:'Máte čas?',en:'Do you have time?',ex:'Formal. Informal: "Máš čas?"'},
+          {cz:'Hodilo by se mi',en:'It would suit me',ex:'Conditional — very polite and useful.'},
+          {cz:'Sejdeme se',en:'Shall we meet / we will meet',ex:'From "sejít se" — reflexive verb.'},
+          {cz:'S pozdravem',en:'Best regards',ex:'Standard Czech email sign-off.'},
+          {cz:'Termín',en:'Time slot / appointment',ex:'Mám termín u lékaře. — I have a doctor\'s appointment.'},
+          {cz:'K dispozici',en:'Available',ex:'Jsem k dispozici. — I am available.'},
+        ]
+      }
+    },
+    {
+      id:'u4l2',title:'Phone calls & appointments',type:'listen',xp:25,
+      data:{
+        intro:'Listen to these phone call dialogues. In Czech business culture, phone calls are still very common for arranging meetings.',
+        dialogs:[
+          {speaker:'A',name:'Recepční',cz:'Dobrý den, firma Novák a syn, co pro vás mohu udělat?',en:'Good day, Novák and Son company, what can I do for you?'},
+          {speaker:'B',name:'Caller',cz:'Dobrý den, chtěl bych si sjednat schůzku s panem ředitelem.',en:'Good day, I would like to arrange a meeting with the director.'},
+          {speaker:'A',name:'Recepční',cz:'Kdy by vám vyhovovalo?',en:'When would suit you?'},
+          {speaker:'B',name:'Caller',cz:'Ve čtvrtek dopoledne, pokud je to možné.',en:'Thursday morning, if that is possible.'},
+          {speaker:'A',name:'Recepční',cz:'Ve čtvrtek máme volný čas od deseti do dvanácti.',en:'On Thursday we have free time from ten to twelve.'},
+          {speaker:'B',name:'Caller',cz:'Výborně. V deset hodin mi vyhovuje.',en:'Excellent. Ten o\'clock suits me.'},
+          {speaker:'A',name:'Recepční',cz:'Mohu se zeptat na vaše jméno a kontakt?',en:'May I ask your name and contact details?'},
+        ],
+        notes:[
+          '"Chtěl/a bych" (I would like) is essential for polite requests in any formal situation',
+          'Czech business culture: arrive on time — being late to a meeting is considered quite rude',
+          '"Dopoledne" = morning (literally "before noon"), "Odpoledne" = afternoon (after noon)',
+        ]
+      }
+    },
+    {
+      id:'u4l3',title:'Formal vs informal Czech',type:'grammar',xp:35,
+      data:{
+        sections:[
+          {
+            title:'The T-V distinction: ty vs. vy',
+            rule:'Czech has two ways to address people. Using the wrong one is a social faux pas. When in doubt at work or with strangers, always use VY (formal):',
+            table:{
+              headers:['Situation','Use','Address'],
+              rows:[
+                ['Friends, family, children','ty (informal)','First name'],
+                ['Strangers, elders, colleagues','vy (formal)','Pan/Paní + surname'],
+                ['Written formal email','vy (formal)','Vykání throughout'],
+                ['After being invited to use ty','ty (informal)','Can switch to first name'],
+              ],
+              highlight:[1]
+            },
+            examples:[
+              {cz:'Jak se jmenuješ? (informal)',en:'What\'s your name? — to a friend'},
+              {cz:'Jak se jmenujete? (formal)',en:'What\'s your name? — to a stranger'},
+              {cz:'Máš čas? / Máte čas?',en:'Do you have time? (informal / formal)'},
+            ]
+          },
+          {
+            title:'Formal email phrases',
+            rule:'Czech professional emails follow a strict structure. Learn these set phrases:',
+            table:{
+              headers:['Czech','English','When to use'],
+              rows:[
+                ['Dobrý den, pane/paní…','Dear Mr/Mrs…','Opening'],
+                ['Dovoluji si Vás kontaktovat…','I am taking the liberty of contacting you…','First contact'],
+                ['Děkuji za Váš e-mail','Thank you for your email','Replying'],
+                ['S pozdravem','Best regards','Closing'],
+                ['Těším se na setkání','I look forward to meeting','Scheduling'],
+                ['V případě dotazů…','If you have any questions…','Before closing'],
+              ],
+              highlight:[]
+            },
+            examples:[
+              {cz:'Těším se na naši spolupráci.',en:'I look forward to our cooperation.'},
+              {cz:'Prosím o potvrzení.',en:'Please confirm.'},
+              {cz:'Omlouvám se za pozdní odpověď.',en:'I apologise for the late reply.'},
+            ]
+          }
+        ]
+      }
+    },
+    {
+      id:'u4l4',title:'Work life fill in blanks',type:'fib',xp:30,
+      data:{
+        instruction:'Complete these professional Czech phrases.',
+        items:[
+          {before:'Chtěl bych si sjednat ',after:'.',answer:'schůzku',hint:'a meeting/appointment'},
+          {before:'Kdy by vám ',after:'?',answer:'vyhovovalo',hint:'would suit you (formal)'},
+          {before:'Jsem k ',after:' celý týden.',answer:'dispozici',hint:'available'},
+          {before:'Těším se na ',after:'.',answer:'setkání',hint:'meeting/encounter'},
+          {before:'S ',after:',',answer:'pozdravem',hint:'Best regards'},
+        ]
+      }
+    },
+    {
+      id:'u4l5',title:'Work & life quiz',type:'quiz',xp:40,
+      data:{qs:[
+        {q:'You are emailing your boss\'s assistant for the first time. Which form do you use?',opts:['ty — she\'s probably young','vy — it\'s a formal first contact','Either is fine','Depends on the company'],ans:1,hint:'Always start with "vy" for first contact in a professional setting.'},
+        {q:'What does "S pozdravem" mean?',opts:['With respect','Please reply','Best regards','Kind request'],ans:2,hint:'The standard Czech email closing.'},
+        {q:'"Schůzka" means…',opts:['A salary','A colleague','An appointment or meeting','A holiday'],ans:2,hint:'From "sejít se" — to meet up.'},
+        {q:'How do you say "I am available on Thursday" formally?',opts:['Jsem volný ve čtvrtek.','Ve čtvrtek mám schůzku.','Ve čtvrtek jsem k dispozici.','Ve čtvrtek pracuji.'],ans:2,hint:'"K dispozici" is the professional phrase for available.'},
+        {q:'"Omlouvám se za pozdní odpověď" means…',opts:['Thank you for your quick reply','I apologise for the late reply','I am not available','Please respond soon'],ans:1,hint:'"Omlouvám se" = I apologise, "pozdní" = late.'},
+      ]}
+    },
+  ]
+},
 ];
 
-// ── State ────────────────────────────────────────────────────────────────────
-const SK = 'czechlearn_state';
-let S = { xp:0, streak:0, lastDate:null, done:{}, totalQ:0, correctQ:0, daily:{} };
-let curUnit=null, curLesson=null, curQ=0, qScore=0;
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+const SK='czlearn_a2_v2';
+let S={xp:0,streak:0,lastDate:null,done:{},totalQ:0,correctQ:0,daily:{}};
+let curUnit=null,curLesson=null,lessonStep=0,qScore=0,qTotal=0;
 
-function load(){ try{ const r=localStorage.getItem(SK); if(r) S=JSON.parse(r); }catch(e){} }
-function save(){ try{ localStorage.setItem(SK, JSON.stringify(S)); }catch(e){} }
+function load(){try{const r=localStorage.getItem(SK);if(r)S=JSON.parse(r);}catch(e){}}
+function save(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
+function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
 
-// ── Navigation ───────────────────────────────────────────────────────────────
-function goTo(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
-}
-
-// ── Heatmap ──────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════
+// HEATMAP
+// ═══════════════════════════════════════════════════════════
 function buildHeatmap(){
-  const el = document.getElementById('heatmap');
-  el.innerHTML='';
-  const today = new Date();
-  // Start 364 days ago, aligned to Sunday
-  const start = new Date(today);
-  start.setDate(start.getDate() - 363);
-
-  // Build 52 columns × 7 rows
-  for(let col=0; col<52; col++){
-    const colEl = document.createElement('div');
-    colEl.className='hmap-col';
-    for(let row=0; row<7; row++){
-      const d = new Date(start);
-      d.setDate(d.getDate() + col*7 + row);
-      if(d > today){ colEl.appendChild(document.createElement('div')); continue; }
-      const key = d.toISOString().slice(0,10);
-      const count = S.daily[key] || 0;
-      const cell = document.createElement('div');
-      cell.className = 'hmap-cell' + (count>=5?' l4':count>=3?' l3':count>=1?' l2':count>0?' l1':'');
-      const label = d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-      cell.title = `${label}: ${count} lesson${count!==1?'s':''} completed`;
-      colEl.appendChild(cell);
+  const el=document.getElementById('heatmap');el.innerHTML='';
+  const today=new Date();const start=new Date(today);start.setDate(start.getDate()-363);
+  for(let col=0;col<52;col++){
+    const ce=document.createElement('div');ce.className='hmap-col';
+    for(let row=0;row<7;row++){
+      const d=new Date(start);d.setDate(d.getDate()+col*7+row);
+      const cell=document.createElement('div');
+      if(d>today){ce.appendChild(cell);continue;}
+      const key=d.toISOString().slice(0,10);
+      const n=S.daily[key]||0;
+      cell.className='hmap-cell'+(n>=6?' l4':n>=4?' l3':n>=2?' l2':n>=1?' l1':'');
+      cell.title=d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+': '+n+' lesson'+(n!==1?'s':'')+' done';
+      ce.appendChild(cell);
     }
-    el.appendChild(colEl);
+    el.appendChild(ce);
   }
 }
 
-// ── Dashboard ────────────────────────────────────────────────────────────────
-function renderDashboard(){
-  const doneLessons = Object.keys(S.done).length;
-  const doneUnits = COURSE.filter(u=>u.lessons.every(l=>S.done[l.id]));
-  const learnedWords = doneUnits.reduce((a,u)=>a+u.words.length,0) +
-    Math.min(COURSE.flatMap(u=>u.lessons).filter(l=>S.done[l.id]).length * 2, 
-             COURSE.reduce((a,u)=>a+u.words.length,0));
-
-  document.getElementById('m-xp').textContent    = S.xp;
-  document.getElementById('m-done').textContent  = doneLessons;
-  document.getElementById('m-words').textContent = Math.min(learnedWords, COURSE.reduce((a,u)=>a+u.words.length,0));
-  document.getElementById('m-acc').textContent   = S.totalQ ? Math.round(S.correctQ/S.totalQ*100)+'%' : '—';
-  document.getElementById('dash-streak').textContent = '🔥 '+S.streak+' day'+(S.streak!==1?'s':'');
-  document.getElementById('dash-xp').textContent     = '⭐ '+S.xp+' XP';
-
+// ═══════════════════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════════════════
+function renderDash(){
+  const doneLes=Object.keys(S.done).length;
+  document.getElementById('m-xp').textContent=S.xp;
+  document.getElementById('m-les').textContent=doneLes;
+  document.getElementById('m-wds').textContent=Math.min(doneLes*3,COURSE.reduce((a,u)=>a+u.words.length,0));
+  document.getElementById('m-acc').textContent=S.totalQ?Math.round(S.correctQ/S.totalQ*100)+'%':'—';
+  document.getElementById('d-streak').textContent='🔥 '+S.streak+' day'+(S.streak!==1?'s':'');
+  document.getElementById('d-xp').textContent='⭐ '+S.xp+' XP';
   buildHeatmap();
-
-  const grid = document.getElementById('units-grid');
-  grid.innerHTML='';
-  COURSE.forEach((unit,ui)=>{
-    const total = unit.lessons.length;
-    const done  = unit.lessons.filter(l=>S.done[l.id]).length;
-    const locked= ui>0 && !COURSE[ui-1].lessons.every(l=>S.done[l.id]);
-    const card  = document.createElement('div');
+  const grid=document.getElementById('units-grid');grid.innerHTML='';
+  COURSE.forEach((u,ui)=>{
+    const total=u.lessons.length,done=u.lessons.filter(l=>S.done[l.id]).length;
+    const locked=ui>0&&!COURSE[ui-1].lessons.every(l=>S.done[l.id]);
+    const card=document.createElement('div');
     card.className='unit-card'+(locked?' locked':'');
-    card.innerHTML=`
-      <div class="unit-num">Unit ${ui+1} ${locked?'🔒':''}</div>
-      <div class="unit-emoji">${unit.emoji}</div>
-      <div class="unit-title">${unit.title}</div>
-      <div class="unit-desc">${unit.desc}</div>
-      <div class="prog-bar"><div class="prog-fill" style="width:${total?Math.round(done/total*100):0}%"></div></div>
-      <div class="unit-meta">${done}/${total} lessons · ${unit.words.length} words</div>
-    `;
-    if(!locked) card.onclick=()=>openUnit(unit);
+    card.innerHTML=`<div class="unit-num">Unit ${ui+1}${locked?' 🔒':''}</div><div class="unit-emoji">${u.emoji}</div><div class="unit-title">${u.title}</div><div class="unit-desc">${u.desc}</div><div class="prog-bar"><div class="prog-fill" style="width:${total?Math.round(done/total*100):0}%"></div></div><div class="unit-meta">${done}/${total} lessons · ${u.words.length} words</div>`;
+    if(!locked)card.onclick=()=>openUnit(u);
     grid.appendChild(card);
   });
 }
 
-// ── Unit screen ──────────────────────────────────────────────────────────────
-function openUnit(unit){
-  curUnit=unit;
-  document.getElementById('unit-hdr').textContent=unit.emoji+' '+unit.title;
-  document.getElementById('unit-tip').innerHTML='💡 '+unit.tip;
-
+// ═══════════════════════════════════════════════════════════
+// UNIT
+// ═══════════════════════════════════════════════════════════
+function openUnit(u){
+  curUnit=u;
+  document.getElementById('unit-hdr').textContent=u.emoji+' '+u.title;
+  document.getElementById('unit-tip').innerHTML='💡 <strong>Grammar tip:</strong> '+u.tip;
   const wg=document.getElementById('word-grid');
-  wg.innerHTML=unit.words.map(([cz,en])=>`
-    <div class="word-card"><div class="word-cz">${cz}</div><div class="word-en">${en}</div></div>
-  `).join('');
-
-  const ll=document.getElementById('lessons-list');
-  ll.innerHTML='';
-  unit.lessons.forEach((les,li)=>{
-    const done  = !!S.done[les.id];
-    const locked= li>0 && !S.done[unit.lessons[li-1].id];
-    const row   = document.createElement('div');
-    row.className='lesson-row'+(locked?' locked':'');
-    row.innerHTML=`
-      <div class="les-icon ${done?'les-done':locked?'les-lock':'les-todo'}">
-        ${done?'✓':locked?'🔒':'▶'}
-      </div>
-      <div class="les-info">
-        <div class="les-title">${les.title}</div>
-        <div class="les-sub">${les.qs.length} questions</div>
-      </div>
-      <span class="les-xp">+${les.xp} XP</span>
-    `;
-    if(!locked) row.onclick=()=>startLesson(les);
+  wg.innerHTML=u.words.map(([cz,en,pron])=>`<div class="word-card"><div class="word-cz">${cz}</div><div class="word-en">${en}</div>${pron?`<div class="word-pron">${pron}</div>`:''}</div>`).join('');
+  const ll=document.getElementById('les-list');ll.innerHTML='';
+  const typeLabel={read:'Reading',listen:'Listening',grammar:'Grammar',fib:'Practice',quiz:'Quiz'};
+  const typeClass={read:'lt-read',listen:'lt-listen',grammar:'lt-gram',fib:'lt-quiz',quiz:'lt-quiz'};
+  u.lessons.forEach((l,li)=>{
+    const done=!!S.done[l.id];
+    const locked=li>0&&!S.done[u.lessons[li-1].id];
+    const row=document.createElement('div');
+    row.className='les-row'+(locked?' locked':'');
+    row.innerHTML=`<div class="les-icon ${done?'li-done':locked?'li-lock':'li-todo'}">${done?'✓':locked?'🔒':'▶'}</div><div class="les-info"><div class="les-title">${l.title}<span class="les-type ${typeClass[l.type]}">${typeLabel[l.type]}</span></div><div class="les-sub">${l.type==='quiz'?l.data.qs.length+' questions':l.type==='fib'?l.data.items.length+' exercises':l.type==='listen'?l.data.dialogs.length+' dialogues':'Reading + vocabulary'}</div></div><span class="les-xp">+${l.xp} XP</span>`;
+    if(!locked)row.onclick=()=>startLesson(l);
     ll.appendChild(row);
   });
-
-  document.getElementById('lesson-back').onclick=()=>goTo('s-unit');
+  document.getElementById('les-back').onclick=()=>goTo('s-unit');
   goTo('s-unit');
 }
 
-// ── Quiz ─────────────────────────────────────────────────────────────────────
-function startLesson(les){
-  curLesson=les; curQ=0; qScore=0;
-  document.getElementById('lesson-hdr').textContent=les.title;
-  document.getElementById('lesson-xp-badge').textContent='⭐ '+les.xp+' XP';
-  renderQuestion();
+// ═══════════════════════════════════════════════════════════
+// LESSON RUNNER
+// ═══════════════════════════════════════════════════════════
+function startLesson(l){
+  curLesson=l;lessonStep=0;qScore=0;qTotal=0;
+  document.getElementById('les-hdr').textContent=l.title;
+  document.getElementById('les-xp').textContent='⭐ '+l.xp+' XP';
+  renderStep();
   goTo('s-lesson');
 }
 
-function renderQuestion(){
-  const qa=document.getElementById('quiz-area');
-  if(curQ>=curLesson.qs.length){ showResult(); return; }
-  const q=curLesson.qs[curQ];
-  const pct=Math.round(curQ/curLesson.qs.length*100);
-  qa.innerHTML=`
-    <div class="quiz-card">
-      <div class="quiz-progress"><div class="quiz-prog-fill" style="width:${pct}%"></div></div>
-      <div class="quiz-label">Question ${curQ+1} of ${curLesson.qs.length}</div>
-      <div class="quiz-q">${q.q}</div>
-      <div class="options">
-        ${q.opts.map((o,i)=>`<button class="opt" onclick="pickAnswer(${i})">${o}</button>`).join('')}
-      </div>
-      <div id="fb"></div>
-    </div>
-  `;
+function renderStep(){
+  const lc=document.getElementById('lesson-content');
+  const bc=document.getElementById('btn-check');
+  const bn=document.getElementById('btn-next');
+  bc.style.display='none';bn.style.display='none';
+  const l=curLesson;
+
+  if(l.type==='read') renderRead(lc,l,bn);
+  else if(l.type==='listen') renderListen(lc,l,bn);
+  else if(l.type==='grammar') renderGrammar(lc,l,bn);
+  else if(l.type==='fib') renderFIB(lc,l,bc,bn);
+  else if(l.type==='quiz') renderQuizStep(lc,l);
 }
 
-function pickAnswer(idx){
-  const q=curLesson.qs[curQ];
+// ── READING ─────────────────────────────────────────────
+function renderRead(lc,l,bn){
+  const d=l.data;
+  lc.innerHTML=`
+    <div class="lesson-wrap">
+      <div class="lesson-hero"><h2>📖 ${l.title}</h2><p>${d.intro}</p></div>
+      <div class="lesson-body">
+        <div class="reading-text">${d.czechText.replace(/\n/g,'<br>')}</div>
+        <label class="translation-toggle"><input type="checkbox" onchange="document.getElementById('trans').classList.toggle('show',this.checked)"> Show English translation</label>
+        <div class="translation-block" id="trans">${d.translation.replace(/\n/g,'<br>')}</div>
+        <div class="divider"></div>
+        <div class="sec-label">Vocabulary from this text</div>
+        <table class="vocab-table">
+          <thead><tr><th>Czech</th><th>English</th><th>Example</th></tr></thead>
+          <tbody>${d.vocab.map(v=>`<tr><td class="cz-cell">${v.cz}</td><td>${v.en}</td><td class="ex-cell">${v.ex}</td></tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>`;
+  bn.style.display='inline-flex';bn.textContent='I\'ve read this →';bn.onclick=()=>finishLesson();
+}
+
+// ── LISTENING ───────────────────────────────────────────
+function renderListen(lc,l,bn){
+  const d=l.data;
+  const dialHtml=d.dialogs.map((dia,i)=>`
+    <div class="dialog-row" style="${dia.speaker==='B'?'flex-direction:row-reverse':''}">
+      <div class="dialog-avatar ${dia.speaker==='B'?'b':''}">${dia.name.slice(0,2).toUpperCase()}</div>
+      <div class="dialog-bubble ${dia.speaker==='B'?'right':''}">
+        <div class="dialog-cz">${dia.cz}</div>
+        <div class="dialog-en" id="den-${i}">${dia.en}</div>
+        <button class="speak-btn" onclick="speakCzech('${dia.cz.replace(/'/g,"\\'")}')">🔊 Listen</button>
+        <button class="show-trans-btn" onclick="document.getElementById('den-${i}').classList.toggle('show')">Show translation</button>
+      </div>
+    </div>`).join('');
+  const notesHtml=d.notes.map(n=>`<li style="font-size:13px;margin-bottom:5px;color:var(--mut)">${n}</li>`).join('');
+  lc.innerHTML=`
+    <div class="lesson-wrap">
+      <div class="lesson-hero" style="background:linear-gradient(135deg,var(--p2),#7F77DD)"><h2>🎧 ${l.title}</h2><p>${d.intro}</p></div>
+      <div class="lesson-body">
+        <div class="listen-card">
+          <div class="listen-title">💬 Dialogue — click 🔊 to hear each line</div>
+          ${dialHtml}
+        </div>
+        <div class="divider"></div>
+        <div class="sec-label">Language notes</div>
+        <ul style="padding-left:16px">${notesHtml}</ul>
+      </div>
+    </div>`;
+  bn.style.display='inline-flex';bn.textContent='Done listening →';bn.onclick=()=>finishLesson();
+}
+
+function speakCzech(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='cs-CZ';u.rate=0.85;
+  window.speechSynthesis.speak(u);
+}
+
+// ── GRAMMAR ─────────────────────────────────────────────
+function renderGrammar(lc,l,bn){
+  const d=l.data;
+  const secHtml=d.sections.map(s=>`
+    <div class="gram-section">
+      <div class="gram-title">📐 ${s.title}</div>
+      <div class="gram-rule">${s.rule}</div>
+      <table class="gram-table">
+        <thead><tr>${s.table.headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
+        <tbody>${s.table.rows.map((r,ri)=>`<tr>${r.map((c,ci)=>`<td class="${s.table.highlight.includes(ri)&&ci===0?'hi':''}">${c}</td>`).join('')}</tr>`).join('')}</tbody>
+      </table>
+      <div class="sec-label" style="margin-top:10px">Examples</div>
+      <div class="gram-examples">${s.examples.map(e=>`<div class="gram-ex"><span class="cz">${e.cz}</span><span class="en">${e.en}</span></div>`).join('')}</div>
+    </div>`).join('<div class="divider"></div>');
+  lc.innerHTML=`<div class="lesson-wrap"><div class="lesson-hero" style="background:linear-gradient(135deg,#854F0B,var(--a2))"><h2>📐 ${l.title}</h2><p>Study the grammar rules and examples below.</p></div><div class="lesson-body">${secHtml}</div></div>`;
+  bn.style.display='inline-flex';bn.textContent='Got it →';bn.onclick=()=>finishLesson();
+}
+
+// ── FILL IN BLANK ───────────────────────────────────────
+function renderFIB(lc,l,bc,bn){
+  const d=l.data;
+  const itemsHtml=d.items.map((it,i)=>`
+    <div class="fib-wrap">
+      <div class="fib-q">${it.before}<input class="fib-input" id="fib-${i}" placeholder="?" autocomplete="off" spellcheck="false">${it.after}</div>
+      <div class="fib-hint" id="fibh-${i}">Hint: ${it.hint}</div>
+    </div>`).join('');
+  lc.innerHTML=`<div class="lesson-wrap"><div class="lesson-hero" style="background:linear-gradient(135deg,var(--g3),var(--g2))"><h2>✏️ ${l.title}</h2><p>${d.instruction}</p></div><div class="lesson-body">${itemsHtml}</div></div>`;
+  bc.style.display='inline-flex';
+}
+
+function checkFIB(){
+  const items=curLesson.data.items;
+  let correct=0;
+  items.forEach((it,i)=>{
+    const inp=document.getElementById('fib-'+i);
+    const val=inp.value.trim().toLowerCase();
+    const ans=it.answer.toLowerCase();
+    if(val===ans){inp.classList.add('correct');inp.classList.remove('wrong');correct++;}
+    else{inp.classList.add('wrong');inp.classList.remove('correct');inp.placeholder=it.answer;}
+  });
+  qScore=correct;qTotal=items.length;
+  S.totalQ+=items.length;S.correctQ+=correct;
+  document.getElementById('btn-check').style.display='none';
+  const bn=document.getElementById('btn-next');
+  bn.style.display='inline-flex';bn.textContent=`${correct}/${items.length} correct — Continue →`;
+  bn.onclick=()=>finishLesson();
+}
+
+function nextStep(){ finishLesson(); }
+
+// ── QUIZ ────────────────────────────────────────────────
+let curQIdx=0;
+function renderQuizStep(lc,l){
+  const qs=l.data.qs;
+  if(curQIdx>=qs.length){finishLesson();return;}
+  const q=qs[curQIdx];
+  const pct=Math.round(curQIdx/qs.length*100);
+  lc.innerHTML=`
+    <div class="quiz-card">
+      <div class="qprog-bar"><div class="qprog-fill" style="width:${pct}%"></div></div>
+      <div class="quiz-label">Question ${curQIdx+1} of ${qs.length}</div>
+      <div class="quiz-q">${q.q}</div>
+      <div class="options">${q.opts.map((o,i)=>`<button class="opt" onclick="pickAns(${i})">${o}</button>`).join('')}</div>
+      <div id="qfb"></div>
+    </div>`;
+}
+
+function pickAns(idx){
+  const q=curLesson.data.qs[curQIdx];
   const opts=document.querySelectorAll('.opt');
   opts.forEach(o=>o.disabled=true);
-  const correct=idx===q.ans;
-  opts[idx].classList.add(correct?'correct':'wrong');
-  if(!correct) opts[q.ans].classList.add('correct');
-  document.getElementById('fb').innerHTML=
-    `<div class="feedback ${correct?'fb-good':'fb-bad'}">${correct?'✓ Correct! ':'✗ Not quite — '}${q.hint}</div>`;
-  S.totalQ++;
-  if(correct){S.correctQ++;qScore++;}
-  setTimeout(()=>{curQ++;renderQuestion();},1700);
+  const ok=idx===q.ans;
+  opts[idx].classList.add(ok?'correct':'wrong');
+  if(!ok)opts[q.ans].classList.add('correct');
+  document.getElementById('qfb').innerHTML=`<div class="feedback ${ok?'fb-good':'fb-bad'}">${ok?'✓ Correct! ':'✗ Not quite. '}${q.hint}</div>`;
+  S.totalQ++;if(ok){S.correctQ++;qScore++;}
+  qTotal=curLesson.data.qs.length;
+  curQIdx++;
+  setTimeout(()=>{renderQuizStep(document.getElementById('lesson-content'),curLesson);},1800);
 }
 
-// ── Result ───────────────────────────────────────────────────────────────────
-async function showResult(){
-  const total=curLesson.qs.length;
-  const pct2=Math.round(qScore/total*100);
-  const stars=pct2===100?'⭐⭐⭐':pct2>=66?'⭐⭐':pct2>=33?'⭐':'';
-  const xpEarned=pct2>=66?curLesson.xp:Math.round(curLesson.xp*pct2/100);
+// ═══════════════════════════════════════════════════════════
+// FINISH LESSON
+// ═══════════════════════════════════════════════════════════
+async function finishLesson(){
+  const l=curLesson;
+  const isQuiz=(l.type==='quiz');
+  const isFib=(l.type==='fib');
+  const hasScore=isQuiz||isFib;
+  const pct=hasScore&&qTotal?Math.round(qScore/qTotal*100):100;
+  const xpEarned=pct>=66?l.xp:Math.round(l.xp*pct/100);
 
-  // Update state
-  if(!S.done[curLesson.id]||S.done[curLesson.id]<qScore){
-    S.done[curLesson.id]=qScore;
-    S.xp+=xpEarned;
+  if(!S.done[l.id]){
+    S.done[l.id]=1;S.xp+=xpEarned;
     const today=new Date().toISOString().slice(0,10);
     if(S.lastDate!==today){S.streak++;S.lastDate=today;}
-    // Record daily activity
     S.daily[today]=(S.daily[today]||0)+1;
   }
   save();
 
+  const stars=pct===100?'⭐⭐⭐':pct>=66?'⭐⭐':pct>=33?'⭐':'';
   document.getElementById('res-stars').textContent=stars;
-  document.getElementById('res-score').textContent=qScore+'/'+total;
-  document.getElementById('res-sub').textContent=`+${xpEarned} XP earned · ${pct2}% correct`;
+  document.getElementById('res-score').textContent=hasScore?qScore+'/'+qTotal:'✓ Done';
+  document.getElementById('res-sub').textContent=`+${xpEarned} XP earned${hasScore?' · '+pct+'% correct':''}`;
 
-  const nextLesson=curUnit?.lessons[curUnit.lessons.indexOf(curLesson)+1];
-  const nextUnit=COURSE[COURSE.indexOf(curUnit)+1];
+  const lesIdx=curUnit.lessons.indexOf(l);
+  const nextL=curUnit.lessons[lesIdx+1];
+  const nextU=COURSE[COURSE.indexOf(curUnit)+1];
   const btn=document.getElementById('res-next');
-  if(nextLesson){btn.textContent='Next lesson →';btn.onclick=()=>startLesson(nextLesson);}
-  else if(nextUnit){btn.textContent='Next unit →';btn.onclick=()=>{renderDashboard();openUnit(nextUnit);};}
-  else{btn.textContent='Back to dashboard';btn.onclick=()=>goTo('s-dashboard');}
+  if(nextL){btn.textContent='Next lesson →';btn.onclick=()=>{curQIdx=0;startLesson(nextL);};}
+  else if(nextU){btn.textContent='Next unit →';btn.onclick=()=>{renderDash();openUnit(nextU);};}
+  else{btn.textContent='Back to dashboard';btn.onclick=()=>goTo('s-dash');}
 
-  renderDashboard();
+  renderDash();
   goTo('s-result');
-  getAIFeedback(pct2,qScore,total);
+  getAIFeedback(l,pct);
 }
 
-async function getAIFeedback(pct2,score,total){
+async function getAIFeedback(l,pct){
   const el=document.getElementById('res-ai');
+  const typeDesc={read:'reading comprehension',listen:'listening and dialogue',grammar:'grammar study',fib:'fill-in-the-blank practice',quiz:'quiz'};
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-6',max_tokens:1000,
-        messages:[{role:'user',content:`A student completed a Czech language lesson called "${curLesson.title}" (unit: "${curUnit.title}"). Score: ${score}/${total} (${pct2}%). Write 2 encouraging sentences of feedback and one specific Czech language tip related to the lesson topic. Keep it under 60 words, friendly tone.`}]
-      })
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:`A student at A2 Czech level completed a ${typeDesc[l.type]} lesson called "${l.title}" (unit: "${curUnit.title}"). Score/completion: ${pct}%. Write 2-3 sentences of encouraging, specific feedback. Mention one practical tip or cultural note about Czech related to this lesson's topic. Friendly tone, under 70 words.`}]})
     });
     const data=await res.json();
-    el.textContent=data.content?.map(c=>c.text||'').join('')||'Great work! Keep practising daily.';
+    el.textContent=data.content?.map(c=>c.text||'').join('')||'Well done! Keep going.';
   }catch(e){
-    el.textContent=score===total
-      ?'Perfect score! Your Czech is developing brilliantly — keep that streak going!'
-      :'Good effort! Review any tricky words and try again to boost your score.';
+    el.textContent=pct===100?'Excellent work! Your Czech is developing really well at A2 level. Keep practising every day!':'Good effort! Review any tricky parts and move on — consistent daily practice is the key to reaching B1.';
   }
 }
 
-// ── Boot ─────────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════════
 load();
-renderDashboard();
+renderDash();
+// reset quiz index on lesson start
+const _startLesson=startLesson;
 </script>
 </body>
 </html>
